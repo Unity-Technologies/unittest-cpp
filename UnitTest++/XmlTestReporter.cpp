@@ -96,7 +96,7 @@ void XmlTestReporter::BeginResults(std::ostream& os, int totalTestCount, int fai
 
 void XmlTestReporter::EndResults(std::ostream& os)
 {
-    os << "</unittest-results>";
+    os << "</unittest-results>\n";
 }
 
 void XmlTestReporter::BeginTest(std::ostream& os, DeferredTestResult const& result)

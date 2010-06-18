@@ -10,6 +10,11 @@
 
 namespace UnitTest {
 
+TestReporterStdout::TestReporterStdout(FILE* fileHandle)
+	: m_fileHandle(fileHandle)
+{
+}
+
 void TestReporterStdout::ReportFailure(TestDetails const& details, char const* failure)
 {
     using namespace std;
@@ -36,11 +41,11 @@ void TestReporterStdout::ReportSummary(int const totalTestCount, int const faile
 	using namespace std;
 
     if (failureCount > 0)
-        printf("FAILURE: %d out of %d tests failed (%d failures).\n", failedTestCount, totalTestCount, failureCount);
+        fprintf(m_fileHandle, "FAILURE: %d out of %d tests failed (%d failures).\n", failedTestCount, totalTestCount, failureCount);
     else
-        printf("Success: %d tests passed.\n", totalTestCount);
+        fprintf(m_fileHandle, "Success: %d tests passed.\n", totalTestCount);
 
-    printf("Test time: %.2f seconds.\n", secondsElapsed);
+    fprintf(m_fileHandle, "Test time: %.2f seconds.\n", secondsElapsed);
 }
 
 }
