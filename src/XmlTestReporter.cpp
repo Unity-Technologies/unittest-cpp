@@ -78,7 +78,7 @@ void XmlTestReporter::AddXmlElement(ostream& os, char const* encoding)
     if (encoding != NULL)
         os << " encoding=\"" << encoding << "\"";
 
-    os << "?>\n";
+    os << "?>";
 }
 
 void XmlTestReporter::BeginResults(std::ostream& os, int totalTestCount, int failedTestCount, 
@@ -89,17 +89,17 @@ void XmlTestReporter::BeginResults(std::ostream& os, int totalTestCount, int fai
        << " failedtests=\"" << failedTestCount << "\"" 
        << " failures=\"" << failureCount << "\"" 
        << " time=\"" << secondsElapsed << "\""
-       << ">\n";
+       << ">";
 }
 
 void XmlTestReporter::EndResults(std::ostream& os)
 {
-    os << "</unittest-results>\n";
+    os << "</unittest-results>";
 }
 
 void XmlTestReporter::BeginTest(std::ostream& os, DeferredTestResult const& result)
 {
-	os << "\t<test"
+	os << "<test"
         << " suite=\"" << result.suiteName << "\"" 
         << " name=\"" << result.testName << "\""
         << " time=\"" << result.timeElapsed << "\"";
@@ -108,14 +108,14 @@ void XmlTestReporter::BeginTest(std::ostream& os, DeferredTestResult const& resu
 void XmlTestReporter::EndTest(std::ostream& os, DeferredTestResult const& result)
 {
     if (result.failed)
-        os << "\t</test>\n";
+        os << "</test>";
     else
-        os << "/>\n";
+        os << "/>";
 }
 
 void XmlTestReporter::AddFailure(std::ostream& os, DeferredTestResult const& result)
 {
-    os << ">\n"; // close <test> element
+    os << ">"; // close <test> element
 
     for (DeferredTestResult::FailureVec::const_iterator it = result.failures.begin(); 
          it != result.failures.end(); 
@@ -124,7 +124,7 @@ void XmlTestReporter::AddFailure(std::ostream& os, DeferredTestResult const& res
         string const escapedMessage = XmlEscape(it->second);
         string const message = BuildFailureMessage(result.failureFile, it->first, escapedMessage);
 
-        os << "\t\t<failure" << " message=\"" << message << "\"" << "/>\n";
+        os << "<failure" << " message=\"" << message << "\"" << "/>";
     }
 }
 
