@@ -5,6 +5,11 @@
 
 namespace UnitTest {
 
+TestReporterStdout::TestReporterStdout(FILE* fileHandle)
+	: m_fileHandle(fileHandle)
+{
+}
+
 void TestReporterStdout::ReportFailure(TestDetails const& details, char const* failure)
 {
 #if defined(__APPLE__) || defined(__GNUG__)
@@ -14,7 +19,7 @@ void TestReporterStdout::ReportFailure(TestDetails const& details, char const* f
 #endif
 
 	using namespace std;
-    printf(errorFormat, details.filename, details.lineNumber, details.testName, failure);
+    fprintf(m_fileHandle, errorFormat, details.filename, details.lineNumber, details.testName, failure);
 }
 
 void TestReporterStdout::ReportTestStart(TestDetails const& /*test*/)
@@ -31,11 +36,11 @@ void TestReporterStdout::ReportSummary(int const totalTestCount, int const faile
 	using namespace std;
 
     if (failureCount > 0)
-        printf("FAILURE: %d out of %d tests failed (%d failures).\n", failedTestCount, totalTestCount, failureCount);
+        fprintf(m_fileHandle, "FAILURE: %d out of %d tests failed (%d failures).\n", failedTestCount, totalTestCount, failureCount);
     else
-        printf("Success: %d tests passed.\n", totalTestCount);
+        fprintf(m_fileHandle, "Success: %d tests passed.\n", totalTestCount);
 
-    printf("Test time: %.2f seconds.\n", secondsElapsed);
+    fprintf(m_fileHandle, "Test time: %.2f seconds.\n", secondsElapsed);
 }
 
 }
