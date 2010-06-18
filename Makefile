@@ -25,6 +25,9 @@ src = src/AssertException.cpp \
 	src/DeferredTestReporter.cpp \
 	src/DeferredTestResult.cpp \
 	src/XmlTestReporter.cpp \
+	src/NunitTestReporter.cpp \
+	src/DeferredSuiteResult.cpp \
+	src/DeferredSuiteReporter.cpp \
 	src/CurrentTest.cpp
 	
 ifeq ($(MSYSTEM), MINGW32)
