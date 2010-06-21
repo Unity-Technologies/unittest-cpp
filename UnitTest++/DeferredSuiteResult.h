@@ -4,7 +4,7 @@
 #include "DeferredTestResult.h"
 
 #include <string>
-#include <vector>
+#include <list>
 
 namespace UnitTest
 {
@@ -21,7 +21,7 @@ public:
 
     std::string suiteName;
     
-    typedef std::vector< DeferredTestResult > ResultVec;
+    typedef std::list< DeferredTestResult > ResultVec;
     ResultVec results;
     
     float timeElapsed;
