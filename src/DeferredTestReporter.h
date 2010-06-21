@@ -4,7 +4,7 @@
 #include "TestReporter.h"
 #include "DeferredTestResult.h"
 
-#include <list>
+#include <vector>
 
 namespace UnitTest
 {
@@ -19,7 +19,7 @@ public:
     virtual void ReportFailure(TestDetails const& details, char const* failure);
     virtual void ReportTestFinish(TestDetails const& details, float secondsElapsed);
 
-    typedef std::vector< DeferredTestResult > DeferredTestResultList;
+    typedef std::list< DeferredTestResult > DeferredTestResultList;
     DeferredTestResultList& GetResults();
 
 private:

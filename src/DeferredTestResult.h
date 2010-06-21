@@ -2,7 +2,7 @@
 #define UNITTEST_DEFERREDTESTRESULT_H
 
 #include <string>
-#include <vector>
+#include <list>
 
 namespace UnitTest
 {
@@ -22,7 +22,7 @@ public:
     std::string failureFile;
     
     typedef std::pair< int, std::string > Failure;
-    typedef std::vector< Failure > FailureVec;
+    typedef std::list< Failure > FailureVec;
     FailureVec failures;
     
     float timeElapsed;
