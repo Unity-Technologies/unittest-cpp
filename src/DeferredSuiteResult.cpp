@@ -26,11 +26,10 @@ DeferredSuiteResult::~DeferredSuiteResult()
 
 DeferredSuiteResult::DeferredSuiteResult(const DeferredSuiteResult& that)
 	: suiteName(that.suiteName)
+	, results(that.results)
 	, timeElapsed(that.timeElapsed)
 	, failed(that.failed)
 {
-	for(ResultVec::const_iterator it = that.results.begin(); it != that.results.end(); ++it)
-		results.push_back(*it);
 }
 
 DeferredSuiteResult& DeferredSuiteResult::operator =(const DeferredSuiteResult& that)
@@ -38,11 +37,9 @@ DeferredSuiteResult& DeferredSuiteResult::operator =(const DeferredSuiteResult& 
 	if(this != &that)
 	{
 		suiteName = that.suiteName;
+		results = that.results;
 		timeElapsed = that.timeElapsed;
 		failed = that.failed;
-
-		for(ResultVec::const_iterator it = that.results.begin(); it != that.results.end(); ++it)
-			results.push_back(*it);
 	}
 
 	return *this;

@@ -30,11 +30,10 @@ DeferredTestResult::DeferredTestResult(const DeferredTestResult& that)
 	: suiteName(that.suiteName)
 	, testName(that.testName)
 	, failureFile(that.failureFile)
+	, failures(that.failures)
 	, timeElapsed(that.timeElapsed)
 	, failed(that.failed)
 {
-	for(FailureVec::const_iterator it = that.failures.begin(); it != that.failures.end(); ++it)
-		failures.push_back(*it);
 }
 
 DeferredTestResult& DeferredTestResult::operator =(const DeferredTestResult& that)
@@ -44,11 +43,9 @@ DeferredTestResult& DeferredTestResult::operator =(const DeferredTestResult& tha
 		suiteName = that.suiteName;
 		testName = that.testName;
 		failureFile = that.failureFile;
+		failures = that.failures;
 		timeElapsed = that.timeElapsed;
 		failed = that.failed;
-
-		for(FailureVec::const_iterator it = that.failures.begin(); it != that.failures.end(); ++it)
-			failures.push_back(*it);
 	}
 
 	return *this;
