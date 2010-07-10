@@ -1,5 +1,5 @@
 CXX = g++
-CXXFLAGS ?= -Wall -W -ansi -arch i386 -mmacosx-version-min=10.4 # -pedantic
+CXXFLAGS ?= -Wall -W -ansi -arch i386 -mmacosx-version-min=10.4 -fvisibility=hidden -fvisibility-inlines-hidden # -pedantic
 LDFLAGS ?= -arch i386
 SED = sed
 MV = mv
