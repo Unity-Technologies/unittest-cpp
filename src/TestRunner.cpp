@@ -10,11 +10,11 @@
 
 namespace UnitTest {
 
-int RunAllTests()
+int RunAllTests(const char* suitName)
 {
 	TestReporterStdout reporter;
 	TestRunner runner(reporter);
-	return runner.RunTestsIf(Test::GetTestList(), NULL, True(), 0);
+	return runner.RunTestsIf(Test::GetTestList(), suitName, True(), 0);
 }
 
 

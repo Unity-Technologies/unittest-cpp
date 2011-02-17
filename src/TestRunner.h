@@ -11,7 +11,7 @@ class TestReporter;
 class TestResults;
 class Timer;
 
-int RunAllTests();
+int RunAllTests(const char* suitName = 0);
 
 struct True
 {

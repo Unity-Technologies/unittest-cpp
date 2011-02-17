@@ -8,6 +8,7 @@
 using std::string;
 using std::ostringstream;
 using std::ostream;
+using std::size_t;
 
 namespace {
 

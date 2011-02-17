@@ -5,6 +5,8 @@
 
 #include <cstdio>
 
+using std::FILE;
+
 namespace UnitTest {
 
 class TestReporterStdout : public TestReporter
