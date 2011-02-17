@@ -11,7 +11,7 @@ class TestReporter;
 class TestResults;
 class Timer;
 
-UNITTEST_LINKAGE int RunAllTests();
+UNITTEST_LINKAGE int RunAllTests(const char* suitName = 0);
 
 struct True
 {
