@@ -19,9 +19,11 @@
 	#define UNITTEST_WIN32
 #endif
 
-#if defined(unix) || defined(__unix__) || defined(__unix) || defined(linux) || \
+#ifndef UNITTEST_FORCE_NO_POSIX
+    #if defined(unix) || defined(__unix__) || defined(__unix) || defined(linux) || \
     defined(__APPLE__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__FreeBSD__)        
     #define UNITTEST_POSIX
+    #endif
 #endif
 
 #if defined(__MINGW32__)
