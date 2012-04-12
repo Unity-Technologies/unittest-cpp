@@ -26,11 +26,13 @@ void ExecuteTest(T& testObject, TestDetails const& details)
 	}
 	catch (AssertException const& e)
 	{
+		HANDLE_FORCED_NO_EXCEPTIONS(e);
 		CurrentTest::Results()->OnTestFailure(
 			TestDetails(details.testName, details.suiteName, e.Filename(), e.LineNumber()), e.what());
 	}
 	catch (std::exception const& e)
 	{
+		HANDLE_FORCED_NO_EXCEPTIONS(e);
 		MemoryOutStream stream;
 		stream << "Unhandled exception: " << e.what();
 		CurrentTest::Results()->OnTestFailure(details, stream.GetText());

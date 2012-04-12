@@ -25,6 +25,20 @@
     #define UNITTEST_MINGW
 #endif
 
+#ifdef UNITTEST_FORCE_NO_EXCEPTIONS
+    struct
+    FakeException
+    {
+        const char* what() const        { return "<unknown>"; }
+        const char* Filename() const    { return "<unknown>"; }
+        int LineNumber() const          { return 0; }
+    };
+    #define HANDLE_FORCED_NO_EXCEPTIONS(name) struct FakeException name;
+#else
+    #define HANDLE_FORCED_NO_EXCEPTIONS(name)
+#endif
+
+
 // by default, MemoryOutStream is implemented in terms of std::ostringstream, which can be expensive.
 // uncomment this line to use the custom MemoryOutStream (no deps on std::ostringstream).
 

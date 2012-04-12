@@ -84,10 +84,12 @@
 		}																			 \
 		catch (UnitTest::AssertException const& e)											 \
 		{																			 \
+            HANDLE_FORCED_NO_EXCEPTIONS(e);                                          \
 			UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(m_details.testName, m_details.suiteName, e.Filename(), e.LineNumber()), e.what()); \
 		}																			 \
 		catch (std::exception const& e)												 \
 		{																			 \
+            HANDLE_FORCED_NO_EXCEPTIONS(e);                                          \
 			UnitTest::MemoryOutStream stream;													 \
 			stream << "Unhandled exception: " << e.what();							 \
 			UnitTest::CurrentTest::Results()->OnTestFailure(m_details, stream.GetText());				 \
