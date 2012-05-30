@@ -68,6 +68,18 @@
         } \
     } while (0)
 
+#define CHECK_RELATIVE_ERROR_NO_ZERO(expected, actual, relativeTolerance) \
+    do \
+    { \
+        try { \
+            UnitTest::CheckCloseRelativeNoZero(*UnitTest::CurrentTest::Results(), expected, actual, relativeTolerance, UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__)); \
+        } \
+        catch (...) { \
+            UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__), \
+                    "Unhandled exception in CHECK_RELATIVE_ERROR_NO_ZERO(" #expected ", " #actual ")"); \
+        } \
+    } while (0)
+
 #define CHECK_ARRAY_EQUAL(expected, actual, count) \
     do \
     { \

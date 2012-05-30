@@ -54,6 +54,27 @@ void CheckClose(TestResults& results, Expected const& expected, Actual const& ac
     }
 }
 
+template< typename Expected, typename Actual, typename Tolerance >
+bool AreCloseRelative(Expected const& expected, Actual const& actual, Tolerance const& relativeTolerance)
+{
+	// Relative error
+	Expected relativeError = (expected - actual) / expected;
+    return ( relativeError <= relativeTolerance );
+}
+
+template< typename Expected, typename Actual, typename Tolerance >
+void CheckCloseRelativeNoZero(TestResults& results, Expected const& expected, Actual const& actual,
+                Tolerance const& relativeTolerance, TestDetails const& details)
+{
+    if (!AreCloseRelative(expected, actual, relativeTolerance))
+    { 
+        UnitTest::MemoryOutStream stream;
+        stream << "Expected " << expected << " R(+/-) " << relativeTolerance << " but was " << actual;
+
+        results.OnTestFailure(details, stream.GetText());
+    }
+}
+
 
 template< typename Expected, typename Actual >
 void CheckArrayEqual(TestResults& results, Expected const& expected, Actual const& actual,
