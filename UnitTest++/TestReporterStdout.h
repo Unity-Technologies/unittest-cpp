@@ -1,7 +1,7 @@
 #ifndef UNITTEST_TESTREPORTERSTDOUT_H
 #define UNITTEST_TESTREPORTERSTDOUT_H
 
-#include "TestReporter.h"
+#include "TestReporterFormat.h"
 
 #include <cstdio>
 
@@ -9,16 +9,13 @@ using std::FILE;
 
 namespace UnitTest {
 
-class UNITTEST_LINKAGE TestReporterStdout : public TestReporter
+class UNITTEST_LINKAGE TestReporterStdout : public TestReporterFormat
 {
 public:
 	TestReporterStdout(FILE* fileHandle = stdout);
 
 private:
-    virtual void ReportTestStart(TestDetails const& test);
-    virtual void ReportFailure(TestDetails const& test, char const* failure);
-    virtual void ReportTestFinish(TestDetails const& test, float secondsElapsed);
-    virtual void ReportSummary(int totalTestCount, int failedTestCount, int failureCount, float secondsElapsed);
+	virtual void Output(const char* log, va_list list);
 
 	FILE*	m_fileHandle;
 };
