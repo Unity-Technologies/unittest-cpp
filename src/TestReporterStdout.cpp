@@ -10,7 +10,7 @@ TestReporterStdout::TestReporterStdout(FILE* fileHandle)
 
 void TestReporterStdout::Output(const char* log, va_list list)
 {
-	fprintf(m_fileHandle, log, list);
+	vfprintf(m_fileHandle, log, list);
 }
 
 }
