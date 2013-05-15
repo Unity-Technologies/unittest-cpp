@@ -17,7 +17,6 @@ public:
     int const lineNumber;
     mutable bool timeConstraintExempt;
 
-    TestDetails(TestDetails const&); // Why is it public? --> http://gcc.gnu.org/bugs.html#cxx_rvalbind
 private:
     TestDetails& operator=(TestDetails const&);
 };
