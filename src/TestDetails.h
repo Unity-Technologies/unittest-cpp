@@ -14,7 +14,6 @@ public:
     char const* const filename;
     int const lineNumber;
 
-    TestDetails(TestDetails const&); // Why is it public? --> http://gcc.gnu.org/bugs.html#cxx_rvalbind
 private:
     TestDetails& operator=(TestDetails const&);
 };
