@@ -9,13 +9,10 @@ public:
     TestDetails(char const* testName, char const* suiteName, char const* filename, int lineNumber);
     TestDetails(const TestDetails& details, int lineNumber);
 
-    char const* const suiteName;
-    char const* const testName;
-    char const* const filename;
-    int const lineNumber;
-
-private:
-    TestDetails& operator=(TestDetails const&);
+    char const* suiteName;
+    char const* testName;
+    char const* filename;
+    int lineNumber;
 };
 
 }
