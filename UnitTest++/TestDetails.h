@@ -11,14 +11,11 @@ public:
     TestDetails(char const* testName, char const* suiteName, char const* filename, int lineNumber);
     TestDetails(const TestDetails& details, int lineNumber);
 
-    char const* const suiteName;
-    char const* const testName;
-    char const* const filename;
-    int const lineNumber;
+    char const* suiteName;
+    char const* testName;
+    char const* filename;
+    int lineNumber;
     mutable bool timeConstraintExempt;
-
-private:
-    TestDetails& operator=(TestDetails const&);
 };
 
 }
