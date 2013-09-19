@@ -55,6 +55,19 @@
 		}) \
 	UNITTEST_MULTILINE_MACRO_END
 
+#define CHECK_MSG(value, message) \
+    do \
+    { \
+        try { \
+            if (!UnitTest::Check(value)) \
+                UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__), message); \
+        } \
+        catch (...) { \
+            UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__), \
+                    "Unhandled exception in CHECK_MSG(" #value ", " #message ")"); \
+        } \
+    } while (0)
+
 #define CHECK_EQUAL(expected, actual) \
 	UNITTEST_MULTILINE_MACRO_BEGIN \
         UT_TRY \
