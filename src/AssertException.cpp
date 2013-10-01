@@ -8,8 +8,8 @@ AssertException::AssertException(char const* description, char const* filename, 
 {
 	using namespace std;
 
-    strcpy(m_description, description);
-    strcpy(m_filename, filename);
+    strcpy_s(m_description, kDescriptionLength, description);
+    strcpy_s(m_filename, kFileNameLength, filename);
 }
 
 AssertException::~AssertException() throw()

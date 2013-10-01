@@ -16,10 +16,15 @@ public:
 
     char const* Filename() const;
     int LineNumber() const;
-
+	
 private:
-    char m_description[512];
-    char m_filename[256];
+	enum 
+	{ 
+		kDescriptionLength = 512,
+		kFileNameLength = 256,
+	};
+    char m_description[kDescriptionLength];
+    char m_filename[kFileNameLength];
     int m_lineNumber;
 };
 
