@@ -4,6 +4,7 @@
 #include "Test.h"
 #include "TestList.h"
 #include "CurrentTest.h"
+#include <string.h>
 
 namespace UnitTest {
 
@@ -18,6 +19,17 @@ struct True
 	bool operator()(const Test* const) const
 	{
 		return true;	
+	}
+};
+
+struct RunSpecificTest
+{
+	const char* testName;
+
+	RunSpecificTest(const char* _testName) : testName(_testName) {}
+	bool operator()(const Test* const t) const
+	{
+		return !strcmp(t->m_details.testName, testName);
 	}
 };
 
