@@ -14,7 +14,7 @@ class Timer;
 
 int RunAllTests(const char* suitName = 0);
 
-struct True
+struct AlwaysTrue
 {
 	bool operator()(const Test* const) const
 	{
