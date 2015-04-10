@@ -76,7 +76,7 @@ namespace
         MockTest test("goodtest", true, false);
         list.Add(&test);
         
-        RunTestsIf(list, NULL, True(), 0);
+        RunTestsIf(list, NULL, AlwaysTrue(), 0);
         CHECK_EQUAL(1, reporter.testRunCount);
         CHECK_EQUAL("goodtest", reporter.lastStartedTest);
     }
@@ -86,7 +86,7 @@ namespace
         MockTest test("goodtest", true, false);
         list.Add(&test);
         
-        RunTestsIf(list, NULL, True(), 0);
+        RunTestsIf(list, NULL, AlwaysTrue(), 0);
         CHECK_EQUAL(1, reporter.testFinishedCount);
         CHECK_EQUAL("goodtest", reporter.lastFinishedTest);
     }
@@ -110,13 +110,13 @@ namespace
         SlowTest test;
         list.Add(&test);
         
-        RunTestsIf(list, NULL, True(), 0);
+        RunTestsIf(list, NULL, AlwaysTrue(), 0);
         CHECK(reporter.lastFinishedTestTime >= 0.005f && reporter.lastFinishedTestTime <= 0.050f);
     }
     
     TEST_FIXTURE(TestRunnerFixture, FailureCountIsZeroWhenNoTestsAreRun)
     {
-        CHECK_EQUAL(0, RunTestsIf(list, NULL, True(), 0));
+        CHECK_EQUAL(0, RunTestsIf(list, NULL, AlwaysTrue(), 0));
         CHECK_EQUAL(0, reporter.testRunCount);
         CHECK_EQUAL(0, reporter.testFailedCount);
     }
@@ -130,7 +130,7 @@ namespace
         MockTest test3("test", false, false);
         list.Add(&test3);
         
-        CHECK_EQUAL(2, RunTestsIf(list, NULL, True(), 0));
+        CHECK_EQUAL(2, RunTestsIf(list, NULL, AlwaysTrue(), 0));
         CHECK_EQUAL(2, reporter.testFailedCount);
     }
     
@@ -139,7 +139,7 @@ namespace
         MockTest test("test", true, true);
         list.Add(&test);
         
-        RunTestsIf(list, NULL, True(), 0);
+        RunTestsIf(list, NULL, AlwaysTrue(), 0);
         CHECK_EQUAL(1, reporter.testFailedCount);
     }
     
@@ -153,7 +153,7 @@ namespace
         list.Add(&test2);
         list.Add(&test3);
         
-        RunTestsIf(list, NULL, True(), 0);
+        RunTestsIf(list, NULL, AlwaysTrue(), 0);
         CHECK_EQUAL(3, reporter.summaryTotalTestCount);
     }
     
@@ -166,7 +166,7 @@ namespace
         list.Add(&test2);
         list.Add(&test3);
         
-        RunTestsIf(list, NULL, True(), 0);
+        RunTestsIf(list, NULL, AlwaysTrue(), 0);
         CHECK_EQUAL(2, reporter.summaryFailedTestCount);
     }
     
@@ -179,7 +179,7 @@ namespace
         list.Add(&test2);
         list.Add(&test3);
         
-        RunTestsIf(list, NULL, True(), 0);
+        RunTestsIf(list, NULL, AlwaysTrue(), 0);
         CHECK_EQUAL(5, reporter.summaryFailureCount);
     }
     
@@ -188,7 +188,7 @@ namespace
         SlowTest test;
         list.Add(&test);
         
-        RunTestsIf(list, NULL, True(), 0);
+        RunTestsIf(list, NULL, AlwaysTrue(), 0);
         CHECK_EQUAL(0, reporter.testFailedCount);
     }
     
@@ -197,7 +197,7 @@ namespace
         SlowTest test;
         list.Add(&test);
         
-        RunTestsIf(list, NULL, True(), 3);
+        RunTestsIf(list, NULL, AlwaysTrue(), 3);
         CHECK_EQUAL(1, reporter.testFailedCount);
     }
     
@@ -206,7 +206,7 @@ namespace
         SlowTest test;
         list.Add(&test);
         
-        RunTestsIf(list, NULL, True(), 3);
+        RunTestsIf(list, NULL, AlwaysTrue(), 3);
         
         using namespace std;
         
@@ -234,7 +234,7 @@ namespace
         SlowExemptedTest test;
         list.Add(&test);
         
-        RunTestsIf(list, NULL, True(), 3);
+        RunTestsIf(list, NULL, AlwaysTrue(), 3);
         CHECK_EQUAL(0, reporter.testFailedCount);
     }
     
@@ -257,13 +257,13 @@ namespace
     
     TEST_FIXTURE(TestSuiteFixture, TestRunnerRunsAllSuitesIfNullSuiteIsPassed)
     {
-        RunTestsIf(list, NULL, True(), 0);
+        RunTestsIf(list, NULL, AlwaysTrue(), 0);
         CHECK_EQUAL(2, reporter.summaryTotalTestCount);
     }
     
     TEST_FIXTURE(TestSuiteFixture,TestRunnerRunsOnlySpecifiedSuite)
     {
-        RunTestsIf(list, "OtherSuite", True(), 0);
+        RunTestsIf(list, "OtherSuite", AlwaysTrue(), 0);
         CHECK_EQUAL(1, reporter.summaryTotalTestCount);
         CHECK_EQUAL("TestInOtherSuite", reporter.lastFinishedTest);
     }
