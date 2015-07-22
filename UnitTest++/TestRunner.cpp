@@ -58,11 +58,10 @@ void TestRunner::RunTest(TestResults* const result, Test* const curTest, int con
 {
 	if (curTest->m_isMockTest == false)
 		CurrentTest::Results() = result;
+	result->OnTestStart(curTest->m_details);
 
 	Timer testTimer;
 	testTimer.Start();
-
-	result->OnTestStart(curTest->m_details);
 
 	curTest->Run();
 
