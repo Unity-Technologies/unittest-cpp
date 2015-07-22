@@ -52,11 +52,10 @@ bool TestRunner::IsTestInSuite(const Test* const curTest, char const* suiteName)
 void TestRunner::RunTest(TestResults* const result, Test* const curTest, int const maxTestTimeInMs) const
 {
 	CurrentTest::Results() = result;
+	result->OnTestStart(curTest->m_details);
 
 	Timer testTimer;
 	testTimer.Start();
-
-	result->OnTestStart(curTest->m_details);
 
 	curTest->Run();
 
