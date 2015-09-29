@@ -5,7 +5,7 @@ namespace UnitTest {
 
 namespace {
 
-void CheckStringsEqual(TestResults& results, char const* expected, char const* actual, 
+bool CheckStringsEqual(TestResults& results, char const* expected, char const* actual,
                        TestDetails const& details)
 {
 	using namespace std;
@@ -16,34 +16,36 @@ void CheckStringsEqual(TestResults& results, char const* expected, char const* a
         stream << "Expected " << (expected ? expected : "<NULLPTR>") << " but was " << (actual ? actual : "<NULLPTR>");
 
         results.OnTestFailure(details, stream.GetText());
+        return false;
     }
+    return true;
 }
 
 }
 
 
-void CheckEqual(TestResults& results, char const* expected, char const* actual,
+bool CheckEqual(TestResults& results, char const* expected, char const* actual,
                 TestDetails const& details)
 {
-    CheckStringsEqual(results, expected, actual, details);
+    return CheckStringsEqual(results, expected, actual, details);
 }
 
-void CheckEqual(TestResults& results, char* expected, char* actual,
+bool CheckEqual(TestResults& results, char* expected, char* actual,
                 TestDetails const& details)
 {
-    CheckStringsEqual(results, expected, actual, details);
+    return CheckStringsEqual(results, expected, actual, details);
 }
 
-void CheckEqual(TestResults& results, char* expected, char const* actual,
+bool CheckEqual(TestResults& results, char* expected, char const* actual,
                 TestDetails const& details)
 {
-    CheckStringsEqual(results, expected, actual, details);
+    return CheckStringsEqual(results, expected, actual, details);
 }
 
-void CheckEqual(TestResults& results, char const* expected, char* actual,
+bool CheckEqual(TestResults& results, char const* expected, char* actual,
                 TestDetails const& details)
 {
-    CheckStringsEqual(results, expected, actual, details);
+    return CheckStringsEqual(results, expected, actual, details);
 }
 
 

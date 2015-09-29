@@ -16,7 +16,7 @@ bool Check(Value const value)
 
 
 template< typename Expected, typename Actual >
-void CheckEqual(TestResults& results, Expected const& expected, Actual const& actual, TestDetails const& details)
+bool CheckEqual(TestResults& results, Expected const& expected, Actual const& actual, TestDetails const& details)
 {
     if (!(expected == actual))
     {
@@ -24,16 +24,18 @@ void CheckEqual(TestResults& results, Expected const& expected, Actual const& ac
         stream << "Expected " << expected << " but was " << actual;
 
         results.OnTestFailure(details, stream.GetText());
+        return false;
     }
+    return true;
 }
 
-UNITTEST_LINKAGE void CheckEqual(TestResults& results, char const* expected, char const* actual, TestDetails const& details);
+UNITTEST_LINKAGE bool CheckEqual(TestResults& results, char const* expected, char const* actual, TestDetails const& details);
 
-UNITTEST_LINKAGE void CheckEqual(TestResults& results, char* expected, char* actual, TestDetails const& details);
+UNITTEST_LINKAGE bool CheckEqual(TestResults& results, char* expected, char* actual, TestDetails const& details);
 
-UNITTEST_LINKAGE void CheckEqual(TestResults& results, char* expected, char const* actual, TestDetails const& details);
+UNITTEST_LINKAGE bool CheckEqual(TestResults& results, char* expected, char const* actual, TestDetails const& details);
 
-UNITTEST_LINKAGE void CheckEqual(TestResults& results, char const* expected, char* actual, TestDetails const& details);
+UNITTEST_LINKAGE bool CheckEqual(TestResults& results, char const* expected, char* actual, TestDetails const& details);
 
 template< typename Expected, typename Actual, typename Tolerance >
 bool AreClose(Expected const& expected, Actual const& actual, Tolerance const& tolerance)
@@ -42,7 +44,7 @@ bool AreClose(Expected const& expected, Actual const& actual, Tolerance const& t
 }
 
 template< typename Expected, typename Actual, typename Tolerance >
-void CheckClose(TestResults& results, Expected const& expected, Actual const& actual, Tolerance const& tolerance,
+bool CheckClose(TestResults& results, Expected const& expected, Actual const& actual, Tolerance const& tolerance,
                 TestDetails const& details)
 {
     if (!AreClose(expected, actual, tolerance))
@@ -51,7 +53,9 @@ void CheckClose(TestResults& results, Expected const& expected, Actual const& ac
         stream << "Expected " << expected << " +/- " << tolerance << " but was " << actual;
 
         results.OnTestFailure(details, stream.GetText());
+        return false;
     }
+    return true;
 }
 
 template< typename Expected, typename Actual, typename Tolerance >
@@ -63,7 +67,7 @@ bool AreCloseRelative(Expected const& expected, Actual const& actual, Tolerance 
 }
 
 template< typename Expected, typename Actual, typename Tolerance >
-void CheckCloseRelativeNoZero(TestResults& results, Expected const& expected, Actual const& actual,
+bool CheckCloseRelativeNoZero(TestResults& results, Expected const& expected, Actual const& actual,
                 Tolerance const& relativeTolerance, TestDetails const& details)
 {
     if (!AreCloseRelative(expected, actual, relativeTolerance))
@@ -72,12 +76,14 @@ void CheckCloseRelativeNoZero(TestResults& results, Expected const& expected, Ac
         stream << "Expected " << expected << " R(+/-) " << relativeTolerance << " but was " << actual;
 
         results.OnTestFailure(details, stream.GetText());
+        return false;
     }
+    return true;
 }
 
 
 template< typename Expected, typename Actual >
-void CheckArrayEqual(TestResults& results, Expected const& expected, Actual const& actual,
+bool CheckArrayEqual(TestResults& results, Expected const& expected, Actual const& actual,
                 int const count, TestDetails const& details)
 {
     bool equal = true;
@@ -101,7 +107,10 @@ void CheckArrayEqual(TestResults& results, Expected const& expected, Actual cons
 		stream << "]";
 
         results.OnTestFailure(details, stream.GetText());
+        return false;
     }
+
+    return true;
 }
 
 template< typename Expected, typename Actual, typename Tolerance >
@@ -114,7 +123,7 @@ bool ArrayAreClose(Expected const& expected, Actual const& actual, int const cou
 }
 
 template< typename Expected, typename Actual, typename Tolerance >
-void CheckArrayClose(TestResults& results, Expected const& expected, Actual const& actual,
+bool CheckArrayClose(TestResults& results, Expected const& expected, Actual const& actual,
                    int const count, Tolerance const& tolerance, TestDetails const& details)
 {
     bool equal = ArrayAreClose(expected, actual, count, tolerance);
@@ -133,11 +142,13 @@ void CheckArrayClose(TestResults& results, Expected const& expected, Actual cons
         stream << "]";
 
         results.OnTestFailure(details, stream.GetText());
+        return false;
     }
+    return true;
 }
 
 template< typename Expected, typename Actual, typename Tolerance >
-void CheckArray2DClose(TestResults& results, Expected const& expected, Actual const& actual,
+bool CheckArray2DClose(TestResults& results, Expected const& expected, Actual const& actual,
                    int const rows, int const columns, Tolerance const& tolerance, TestDetails const& details)
 {
     bool equal = true;
@@ -171,7 +182,9 @@ void CheckArray2DClose(TestResults& results, Expected const& expected, Actual co
 		stream << "]";
 
         results.OnTestFailure(details, stream.GetText());
+        return false;
     }
+    return true;
 }
 
 }
