@@ -25,6 +25,14 @@
 	#error UnitTest++ redefines TEST_FIXTURE_EX
 #endif
 
+namespace UnitTestCategory
+{
+	inline const char* GetCategoryName()
+	{
+		return "";
+	}
+}
+
 #define SUITE(Name)                                                         \
 	namespace Suite##Name {                                                        \
         namespace UnitTestSuite {                                           \
@@ -39,7 +47,7 @@
     class Test##Name : public UnitTest::Test                               \
     {                                                                      \
     public:                                                                \
-		Test##Name() : Test(#Name, UnitTestSuite::GetSuiteName(), __FILE__, __LINE__) {}  \
+		Test##Name() : Test(#Name, UnitTestSuite::GetSuiteName(), UnitTestCategory::GetCategoryName(), __FILE__, __LINE__) {}  \
     private:                                                               \
         virtual void RunImpl() const;   \
     } test##Name##Instance;                                                \
@@ -67,7 +75,7 @@
     class Test##Fixture##Name : public UnitTest::Test                                \
     {                                                                                \
     public:                                                                          \
-	    Test##Fixture##Name() : Test(#Name, UnitTestSuite::GetSuiteName(), __FILE__, __LINE__) {} \
+	    Test##Fixture##Name() : Test(#Name, UnitTestSuite::GetSuiteName(), UnitTestCategory::GetCategoryName(), __FILE__, __LINE__) {} \
     private:                                                                         \
         virtual void RunImpl() const;             \
     } test##Fixture##Name##Instance;                                                 \
@@ -85,7 +93,7 @@
 		catch (UnitTest::AssertException const& e)											 \
 		{																			 \
             HANDLE_FORCED_NO_EXCEPTIONS(e);                                          \
-			UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(m_details.testName, m_details.suiteName, e.Filename(), e.LineNumber()), e.what()); \
+			UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(m_details.testName, m_details.suiteName, m_details.category, e.Filename(), e.LineNumber()), e.what()); \
 		}																			 \
 		catch (std::exception const& e)												 \
 		{																			 \

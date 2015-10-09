@@ -58,7 +58,7 @@ struct DummyFixture
 };
 
 // We're really testing the macros so we just want them to compile and link
-SUITE(TestSuite1)
+UNIT_TEST_SUITE(TestSuite1)
 {
 	TEST(SimilarlyNamedTestsInDifferentSuitesWork)
 	{
@@ -69,7 +69,7 @@ SUITE(TestSuite1)
 	}
 }
 
-SUITE(TestSuite2)
+UNIT_TEST_SUITE(TestSuite2)
 {
 	TEST(SimilarlyNamedTestsInDifferentSuitesWork)
 	{
@@ -190,7 +190,7 @@ TEST(CorrectlyReportsFixturesWithCtorsThatAssert)
 // We're really testing if it's possible to use the same suite in two files
 // to compile and link successfuly (TestTestSuite.cpp has suite with the same name)
 // Note: we are outside of the anonymous namespace
-SUITE(SameTestSuite)
+UNIT_TEST_SUITE(SameTestSuite)
 {
 	TEST(DummyTest1)
 	{

@@ -10,14 +10,16 @@ public:
 		: suiteName (0)
 		, testName (0)
 		, filename (0)
+		, category (0)
 		, lineNumber (-1) {}
 
-    TestDetails(char const* testName, char const* suiteName, char const* filename, int lineNumber);
+    TestDetails(char const* testName, char const* suiteName, const char* category, char const* filename, int lineNumber);
     TestDetails(const TestDetails& details, int lineNumber);
 
     char const* suiteName;
     char const* testName;
     char const* filename;
+	char const* category;
     int lineNumber;
 };
 

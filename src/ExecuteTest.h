@@ -28,7 +28,7 @@ void ExecuteTest(T& testObject, TestDetails const& details)
 	{
 		HANDLE_FORCED_NO_EXCEPTIONS(e);
 		CurrentTest::Results()->OnTestFailure(
-			TestDetails(details.testName, details.suiteName, e.Filename(), e.LineNumber()), e.what());
+			TestDetails(details.testName, details.suiteName, details.category, e.Filename(), e.LineNumber()), e.what());
 	}
 	catch (std::exception const& e)
 	{

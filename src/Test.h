@@ -11,7 +11,7 @@ class TestList;
 class Test
 {
 public:
-    explicit Test(char const* testName, char const* suiteName = "DefaultSuite", char const* filename = "", int lineNumber = 0);
+    explicit Test(char const* testName, char const* suiteName = "DefaultSuite", const char* categoryName = "", char const* filename = "", int lineNumber = 0);
     virtual ~Test();
     void Run();
 
