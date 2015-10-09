@@ -111,7 +111,7 @@ struct Fixture
 
 TEST_FIXTURE(Fixture, ReportTestStartCallsReportTestStartOnAllAggregates)
 {
-	TestDetails t("", "", "", 0);
+	TestDetails t("", "", "", "", 0);
 	c.ReportTestStart(t);
 
 	CHECK(r0.testStartCalled);
@@ -122,7 +122,7 @@ TEST_FIXTURE(Fixture, ReportTestStartCallsReportTestStartOnAllAggregates)
 
 TEST_FIXTURE(Fixture, ReportFailureCallsReportFailureOnAllAggregates)
 {
-	TestDetails t("", "", "", 0);
+	TestDetails t("", "", "", "", 0);
 	const char* failStr = "fail";
 	c.ReportFailure(t, failStr);
 
@@ -137,7 +137,7 @@ TEST_FIXTURE(Fixture, ReportFailureCallsReportFailureOnAllAggregates)
 
 TEST_FIXTURE(Fixture, ReportTestFinishCallsReportTestFinishOnAllAggregates)
 {
-	TestDetails t("", "", "", 0);
+	TestDetails t("", "", "", "", 0);
 	const float s = 1.2345f;
 	c.ReportTestFinish(t, s);
 
@@ -152,7 +152,7 @@ TEST_FIXTURE(Fixture, ReportTestFinishCallsReportTestFinishOnAllAggregates)
 
 TEST_FIXTURE(Fixture, ReportSummaryCallsReportSummaryOnAllAggregates)
 {
-	TestDetails t("", "", "", 0);
+	TestDetails t("", "", "", "", 0);
 	const int testCount = 3;
 	const int failedTestCount = 4;
 	const int failureCount = 5;

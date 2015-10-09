@@ -38,6 +38,7 @@ public:
 		using namespace std;
 
         ++testRunCount;
+		strcpy(lastStartedCategory, test.category);
         strcpy(lastStartedSuite, test.suiteName);
         strcpy(lastStartedTest, test.testName);
     }
@@ -51,6 +52,7 @@ public:
         lastFailedLine = test.lineNumber;
         strcpy(lastFailedSuite, test.suiteName);
         strcpy(lastFailedTest, test.testName);
+		strcpy(lastFailedCategory, test.category);
         strcpy(lastFailedMessage, failure);
     }
 
@@ -59,6 +61,7 @@ public:
 		using namespace std;
 
 		++testFinishedCount;
+		strcpy(lastFinishedCategory, test.category);
         strcpy(lastFinishedSuite, test.suiteName);
         strcpy(lastFinishedTest, test.testName);
         lastFinishedTestTime = testDuration;
@@ -73,17 +76,20 @@ public:
     }
 
     int testRunCount;
+	char lastStartedCategory[kMaxStringLength];
     char lastStartedSuite[kMaxStringLength];
     char lastStartedTest[kMaxStringLength];
 
     int testFailedCount;
     char lastFailedFile[kMaxStringLength];
     int lastFailedLine;
+	char lastFailedCategory[kMaxStringLength];
     char lastFailedSuite[kMaxStringLength];
     char lastFailedTest[kMaxStringLength];
     char lastFailedMessage[kMaxStringLength];
 
     int testFinishedCount;
+	char lastFinishedCategory[kMaxStringLength];
     char lastFinishedSuite[kMaxStringLength];
     char lastFinishedTest[kMaxStringLength];
     float lastFinishedTestTime;

@@ -44,7 +44,7 @@ UNITTEST_LINKAGE void ReportAssertEx(TestResults* testResults,
 {
 	if (AssertExpectedFlag() == false)
 	{
-		TestDetails assertDetails(testDetails->testName, testDetails->suiteName, filename, lineNumber);
+		TestDetails assertDetails(testDetails->testName, testDetails->suiteName, testDetails->category, filename, lineNumber);
 		testResults->OnTestFailure(assertDetails, description);
 	}
 

@@ -6,7 +6,7 @@ using namespace UnitTest;
 
 namespace {
 
-TestDetails const details("testname", "suitename", "filename", 123);
+TestDetails const details("testname", "suitename", "categoryname", "filename", 123);
 
 
 TEST(StartsWithNoTestsRun)
@@ -62,6 +62,7 @@ TEST(NotifiesReporterOfTestStartWithCorrectInfo)
     results.OnTestStart(details);
 
     CHECK_EQUAL (1, reporter.testRunCount);
+    CHECK_EQUAL ("categoryname", reporter.lastStartedCategory);
     CHECK_EQUAL ("suitename", reporter.lastStartedSuite);
     CHECK_EQUAL ("testname", reporter.lastStartedTest);
 }
@@ -75,6 +76,7 @@ TEST(NotifiesReporterOfTestFailureWithCorrectInfo)
     CHECK_EQUAL (1, reporter.testFailedCount);
     CHECK_EQUAL ("filename", reporter.lastFailedFile);
     CHECK_EQUAL (123, reporter.lastFailedLine);
+	CHECK_EQUAL ("categoryname", reporter.lastFailedCategory);
     CHECK_EQUAL ("suitename", reporter.lastFailedSuite);
     CHECK_EQUAL ("testname", reporter.lastFailedTest);
     CHECK_EQUAL ("failurestring", reporter.lastFailedMessage);
@@ -92,6 +94,7 @@ TEST(NotifiesReporterOfCheckFailureWithCorrectInfo)
     CHECK_EQUAL (123, reporter.lastFailedLine);
     CHECK_EQUAL ("testname", reporter.lastFailedTest);
     CHECK_EQUAL ("suitename", reporter.lastFailedSuite);
+	CHECK_EQUAL ("categoryname", reporter.lastFailedCategory);
     CHECK_EQUAL ("failurestring", reporter.lastFailedMessage);
 }
 
@@ -104,6 +107,7 @@ TEST(NotifiesReporterOfTestEnd)
     CHECK_EQUAL (1, reporter.testFinishedCount);
     CHECK_EQUAL ("testname", reporter.lastFinishedTest);
     CHECK_EQUAL ("suitename", reporter.lastFinishedSuite);
+	CHECK_EQUAL ("categoryname", reporter.lastFinishedCategory);
     CHECK_CLOSE (0.1234f, reporter.lastFinishedTestTime, 0.0001f);
 }
 

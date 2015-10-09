@@ -36,7 +36,7 @@ struct XmlTestReporterFixture
 
 TEST_FIXTURE(XmlTestReporterFixture, MultipleCharactersAreEscaped)
 {
-    TestDetails const details("TestName", "suite", "filename.h", 4321);
+    TestDetails const details("TestName", "suite", "category", "filename.h", 4321);
 
     reporter.ReportTestStart(details);
     reporter.ReportFailure(details, "\"\"\'\'&&<<>>");
@@ -57,7 +57,7 @@ TEST_FIXTURE(XmlTestReporterFixture, MultipleCharactersAreEscaped)
 
 TEST_FIXTURE(XmlTestReporterFixture, OutputIsCachedUntilReportSummaryIsCalled)
 {
-    TestDetails const details("", "", "", 0);
+    TestDetails const details("", "", "", "", 0);
 
     reporter.ReportTestStart(details);
     reporter.ReportFailure(details, "message");
@@ -82,7 +82,7 @@ TEST_FIXTURE(XmlTestReporterFixture, EmptyReportSummaryFormat)
 
 TEST_FIXTURE(XmlTestReporterFixture, SingleSuccessfulTestReportSummaryFormat)
 {
-    TestDetails const details("TestName", "DefaultSuite", "", 0);
+    TestDetails const details("TestName", "DefaultSuite", "category", "", 0);
 
     reporter.ReportTestStart(details);
     reporter.ReportSummary(1, 0, 0, 0.1f);
@@ -98,7 +98,7 @@ TEST_FIXTURE(XmlTestReporterFixture, SingleSuccessfulTestReportSummaryFormat)
 
 TEST_FIXTURE(XmlTestReporterFixture, SingleFailedTestReportSummaryFormat)
 {
-    TestDetails const details("A Test", "suite", "A File", 4321);
+    TestDetails const details("A Test", "suite", "category", "A File", 4321);
 
     reporter.ReportTestStart(details);
     reporter.ReportFailure(details, "A Failure");
@@ -117,7 +117,7 @@ TEST_FIXTURE(XmlTestReporterFixture, SingleFailedTestReportSummaryFormat)
 
 TEST_FIXTURE(XmlTestReporterFixture, FailureMessageIsXMLEscaped)
 {
-    TestDetails const details("TestName", "suite", "filename.h", 4321);
+    TestDetails const details("TestName", "suite", "category", "filename.h", 4321);
 
     reporter.ReportTestStart(details);
     reporter.ReportFailure(details, "\"\'&<>");
@@ -137,12 +137,12 @@ TEST_FIXTURE(XmlTestReporterFixture, FailureMessageIsXMLEscaped)
 
 TEST_FIXTURE(XmlTestReporterFixture, OneFailureAndOneSuccess)
 {
-    TestDetails const failedDetails("FailedTest", "suite", "fail.h", 1);
+    TestDetails const failedDetails("FailedTest", "suite", "category", "fail.h", 1);
     reporter.ReportTestStart(failedDetails);
     reporter.ReportFailure(failedDetails, "expected 1 but was 2");
     reporter.ReportTestFinish(failedDetails, 0.1f);
 
-    TestDetails const succeededDetails("SucceededTest", "suite", "", 0);
+    TestDetails const succeededDetails("SucceededTest", "suite", "category", "", 0);
     reporter.ReportTestStart(succeededDetails);
     reporter.ReportTestFinish(succeededDetails, 1.0f);
     reporter.ReportSummary(2, 1, 1, 1.1f);
@@ -161,8 +161,8 @@ TEST_FIXTURE(XmlTestReporterFixture, OneFailureAndOneSuccess)
 
 TEST_FIXTURE(XmlTestReporterFixture, MultipleFailures)
 {
-    TestDetails const failedDetails1("FailedTest", "suite", "fail.h", 1);
-    TestDetails const failedDetails2("FailedTest", "suite", "fail.h", 31);
+    TestDetails const failedDetails1("FailedTest", "suite", "category", "fail.h", 1);
+    TestDetails const failedDetails2("FailedTest", "suite", "category", "fail.h", 31);
 
     reporter.ReportTestStart(failedDetails1);
     reporter.ReportFailure(failedDetails1, "expected 1 but was 2");

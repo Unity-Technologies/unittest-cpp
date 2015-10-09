@@ -95,7 +95,7 @@ namespace
     {
     public:
         SlowTest()
-        : Test("slow", "somesuite", "filename", 123)
+        : Test("slow", "somesuite", "somecategory", "filename", 123)
         {
         }
         
@@ -223,7 +223,7 @@ namespace
         class SlowExemptedTest : public Test
         {
         public:
-            SlowExemptedTest() : Test("slowexempted", "", 0) {}
+            SlowExemptedTest() : Test("slowexempted", "", "", 0) {}
             virtual void RunImpl() const
             {
                 UNITTEST_TIME_CONSTRAINT_EXEMPT();

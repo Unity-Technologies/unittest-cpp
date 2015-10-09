@@ -30,7 +30,7 @@ TEST(ReportAssertThrowsAssertException)
     try
     {
 		TestResults testResults;
-		TestDetails testDetails("", "", "", 0);
+		TestDetails testDetails("", "", "", "", 0);
         Detail::ReportAssertEx(&testResults, &testDetails, "", "", 0);
     }
     catch(AssertException const&)
@@ -45,7 +45,7 @@ TEST(ReportAssertClearsExpectAssertFlag)
 {
 	RecordingReporter reporter;
 	TestResults testResults(&reporter);
-	TestDetails testDetails("", "", "", 0);
+	TestDetails testDetails("", "", "", "", 0);
 
 	try
 	{
@@ -68,7 +68,7 @@ TEST(ReportAssertWritesFailureToResultsAndDetailsWhenAssertIsNotExpected)
 
 	RecordingReporter reporter;
 	TestResults testResults(&reporter);
-	TestDetails testDetails("", "", "", 0);
+	TestDetails testDetails("", "", "", "", 0);
 
     try
     {
@@ -89,7 +89,7 @@ TEST(ReportAssertReportsNoErrorsWhenAssertIsExpected)
 
 	RecordingReporter reporter;
 	TestResults testResults(&reporter);
-	TestDetails testDetails("", "", "", 0);
+	TestDetails testDetails("", "", "", "", 0);
 
 	try
 	{

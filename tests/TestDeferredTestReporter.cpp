@@ -32,15 +32,17 @@ struct DeferredTestReporterFixture
     DeferredTestReporterFixture()
         : testName("UniqueTestName")
         , testSuite("UniqueTestSuite")
+		, testCategory("UniqueTestCategory")
         , fileName("filename.h")
         , lineNumber(12)
-        , details(testName.c_str(), testSuite.c_str(), fileName.c_str(), lineNumber)
+        , details(testName.c_str(), testSuite.c_str(), testCategory.c_str(), fileName.c_str(), lineNumber)
     {
     }
 
     MockDeferredTestReporter reporter;
     std::string const testName;
     std::string const testSuite;
+	std::string const testCategory;
     std::string const fileName;
     int const lineNumber;
     TestDetails const details;

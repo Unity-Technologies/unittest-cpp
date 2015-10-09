@@ -18,8 +18,8 @@ TestList& Test::GetTestList()
     return s_list;
 }
 
-Test::Test(char const* testName, char const* suiteName, char const* filename, int lineNumber)
-    : m_details(testName, suiteName, filename, lineNumber)
+Test::Test(char const* testName, char const* suiteName, const char* categoryName, char const* filename, int lineNumber)
+    : m_details(testName, suiteName, categoryName, filename, lineNumber)
     , m_nextTest(0)
 	, m_isMockTest(false)
 {

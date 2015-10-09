@@ -92,14 +92,14 @@ SUITE(CheckEqualExceptionTests)
 
         void PerformCheckWithNonStdThrow()
         {
-            UnitTest::TestDetails const testDetails("testName", "suiteName", "filename", -1);
+            UnitTest::TestDetails const testDetails("testName", "suiteName", "categoryName", "filename", -1);
             ScopedCurrentTest scopedResults(testResults, &testDetails);
             CHECK_EQUAL(ThrowingFunction(), 123); line = __LINE__;
         }
 
         void PerformCheckWithStdThrow()
         {
-            UnitTest::TestDetails const testDetails("testName", "suiteName", "filename", -1);
+            UnitTest::TestDetails const testDetails("testName", "suiteName", "categoryName", "filename", -1);
             ScopedCurrentTest scopedResults(testResults, &testDetails);
             CHECK_EQUAL(ThrowingStdExceptionFunction(), 123); line = __LINE__;
         }
@@ -178,14 +178,14 @@ SUITE(CheckCloseExceptionTests)
 
         void PerformCheckWithNonStdThrow()
         {
-            UnitTest::TestDetails const testDetails("closeTest", "closeSuite", "filename", -1);
+            UnitTest::TestDetails const testDetails("closeTest", "closeSuite", "closeCategory", "filename", -1);
             ScopedCurrentTest scopedResults(testResults, &testDetails);
             CHECK_CLOSE(static_cast<float>(ThrowingFunction()), 1.0001f, 0.1f); line = __LINE__;
         }
 
         void PerformCheckWithStdThrow()
         {
-            UnitTest::TestDetails const testDetails("closeTest", "closeSuite", "filename", -1);
+            UnitTest::TestDetails const testDetails("closeTest", "closeSuite", "closeCategory", "filename", -1);
             ScopedCurrentTest scopedResults(testResults, &testDetails);
             CHECK_CLOSE(static_cast<float>(ThrowingStdExceptionFunction()), 1.0001f, 0.1f); line = __LINE__;
         }
@@ -284,7 +284,7 @@ SUITE(CheckArrayCloseExceptionTests)
 
         void PerformCheckWithNonStdThrow()
         {
-            UnitTest::TestDetails const testDetails("arrayCloseTest", "arrayCloseSuite", "filename", -1);
+            UnitTest::TestDetails const testDetails("arrayCloseTest", "arrayCloseSuite", "arrayCloseCategory", "filename", -1);
             ScopedCurrentTest scopedResults(testResults, &testDetails);
             int const data[4] = { 0, 1, 2, 3 };
             CHECK_ARRAY_CLOSE(data, ThrowingObject(), 4, 0.01f); line = __LINE__;
@@ -292,7 +292,7 @@ SUITE(CheckArrayCloseExceptionTests)
 
         void PerformCheckWithStdThrow()
         {
-            UnitTest::TestDetails const testDetails("arrayCloseTest", "arrayCloseSuite", "filename", -1);
+            UnitTest::TestDetails const testDetails("arrayCloseTest", "arrayCloseSuite", "arrayCloseCategory", "filename", -1);
             ScopedCurrentTest scopedResults(testResults, &testDetails);
             int const data[4] = { 0, 1, 2, 3 };
             CHECK_ARRAY_CLOSE(data, StdThrowingObject(), 4, 0.01f); line = __LINE__;
@@ -374,7 +374,7 @@ SUITE(CheckArrayEqualExceptionTests)
 
         void PerformCheckWithNonStdThrow()
         {
-            UnitTest::TestDetails const testDetails("arrayEqualTest", "arrayEqualSuite", "filename", -1);
+            UnitTest::TestDetails const testDetails("arrayEqualTest", "arrayEqualSuite", "arrayEqualCategory", "filename", -1);
             ScopedCurrentTest scopedResults(testResults, &testDetails);
             int const data[4] = { 0, 1, 2, 3 };
             CHECK_ARRAY_EQUAL(data, ThrowingObject(), 4); line = __LINE__;
@@ -382,7 +382,7 @@ SUITE(CheckArrayEqualExceptionTests)
 
         void PerformCheckWithStdThrow()
         {
-            UnitTest::TestDetails const testDetails("arrayEqualTest", "arrayEqualSuite", "filename", -1);
+            UnitTest::TestDetails const testDetails("arrayEqualTest", "arrayEqualSuite", "arrayEqualCategory", "filename", -1);
             ScopedCurrentTest scopedResults(testResults, &testDetails);
             int const data[4] = { 0, 1, 2, 3 };
             CHECK_ARRAY_EQUAL(data, StdThrowingObject(), 4); line = __LINE__;
@@ -482,7 +482,7 @@ SUITE(CheckArray2DExceptionTests)
 
         void PerformCheckWithNonStdThrow()
         {
-            UnitTest::TestDetails const testDetails("array2DCloseTest", "array2DCloseSuite", "filename", -1);
+            UnitTest::TestDetails const testDetails("array2DCloseTest", "array2DCloseSuite", "array2DCloseCategory", "filename", -1);
             ScopedCurrentTest scopedResults(testResults, &testDetails);
             const float data[2][2] = { {0, 1}, {2, 3} };
             CHECK_ARRAY2D_CLOSE(data, ThrowingObject2D(), 2, 2, 0.01f); line = __LINE__;
@@ -490,7 +490,7 @@ SUITE(CheckArray2DExceptionTests)
 
         void PerformCheckWithStdThrow()
         {
-            UnitTest::TestDetails const testDetails("array2DCloseTest", "array2DCloseSuite", "filename", -1);
+            UnitTest::TestDetails const testDetails("array2DCloseTest", "array2DCloseSuite", "array2DCloseCategory", "filename", -1);
             ScopedCurrentTest scopedResults(testResults, &testDetails);
             const float data[2][2] = { {0, 1}, {2, 3} };
             CHECK_ARRAY2D_CLOSE(data, StdThrowingObject2D(), 2, 2, 0.01f); line = __LINE__;

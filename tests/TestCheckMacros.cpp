@@ -96,7 +96,7 @@ TEST(CheckEqualFailureContainsCorrectDetails)
     RecordingReporter reporter;
     {
         UnitTest::TestResults testResults(&reporter);
-		UnitTest::TestDetails const testDetails("testName", "suiteName", "filename", -1);
+		UnitTest::TestDetails const testDetails("testName", "suiteName", "category", "filename", -1);
 		ScopedCurrentTest scopedResults(testResults, &testDetails);
 
 		CHECK_EQUAL(1, 123);    line = __LINE__;
@@ -104,6 +104,7 @@ TEST(CheckEqualFailureContainsCorrectDetails)
 
     CHECK_EQUAL("testName", reporter.lastFailedTest);
     CHECK_EQUAL("suiteName", reporter.lastFailedSuite);
+	CHECK_EQUAL("category", reporter.lastFailedCategory);
     CHECK_EQUAL("filename", reporter.lastFailedFile);
     CHECK_EQUAL(line, reporter.lastFailedLine);
 }
@@ -172,7 +173,7 @@ TEST(CheckCloseFailureContainsCorrectDetails)
     RecordingReporter reporter;
     {
         UnitTest::TestResults testResults(&reporter);
-		UnitTest::TestDetails testDetails("test", "suite", "filename", -1);
+		UnitTest::TestDetails testDetails("test", "suite", "category", "filename", -1);
 		ScopedCurrentTest scopedResults(testResults, &testDetails);
 
 		CHECK_CLOSE (1.0f, 1.1f, 0.01f);    line = __LINE__;
@@ -180,6 +181,7 @@ TEST(CheckCloseFailureContainsCorrectDetails)
 
     CHECK_EQUAL("test", reporter.lastFailedTest);
     CHECK_EQUAL("suite", reporter.lastFailedSuite);
+	CHECK_EQUAL("category", reporter.lastFailedCategory);
     CHECK_EQUAL("filename", reporter.lastFailedFile);
     CHECK_EQUAL(line, reporter.lastFailedLine);
 }
@@ -261,7 +263,7 @@ TEST(CheckArrayCloseFailureContainsCorrectDetails)
     RecordingReporter reporter;
     {
         UnitTest::TestResults testResults(&reporter);
-		UnitTest::TestDetails testDetails("arrayCloseTest", "arrayCloseSuite", "filename", -1);
+		UnitTest::TestDetails testDetails("arrayCloseTest", "arrayCloseSuite", "arrayCloseCategory", "filename", -1);
 		ScopedCurrentTest scopedResults(testResults, &testDetails);
 
 		int const data1[4] = { 0, 1, 2, 3 };
@@ -271,6 +273,7 @@ TEST(CheckArrayCloseFailureContainsCorrectDetails)
 
     CHECK_EQUAL("arrayCloseTest", reporter.lastFailedTest);
     CHECK_EQUAL("arrayCloseSuite", reporter.lastFailedSuite);
+	CHECK_EQUAL("arrayCloseCategory", reporter.lastFailedCategory);
     CHECK_EQUAL("filename", reporter.lastFailedFile);
     CHECK_EQUAL(line, reporter.lastFailedLine);
 }
@@ -451,7 +454,7 @@ TEST(CheckArray2DCloseFailureContainsCorrectDetails)
     RecordingReporter reporter;
     {
         UnitTest::TestResults testResults(&reporter);
-		UnitTest::TestDetails testDetails("array2DCloseTest", "array2DCloseSuite", "filename", -1);
+		UnitTest::TestDetails testDetails("array2DCloseTest", "array2DCloseSuite", "array2DCloseCategory", "filename", -1);
 		ScopedCurrentTest scopedResults(testResults, &testDetails);
 
 		int const data1[2][2] = { {0, 1}, {2, 3} };
@@ -461,6 +464,7 @@ TEST(CheckArray2DCloseFailureContainsCorrectDetails)
 
     CHECK_EQUAL("array2DCloseTest", reporter.lastFailedTest);
     CHECK_EQUAL("array2DCloseSuite", reporter.lastFailedSuite);
+	CHECK_EQUAL("array2DCloseCategory", reporter.lastFailedCategory);
     CHECK_EQUAL("filename", reporter.lastFailedFile);
     CHECK_EQUAL(line, reporter.lastFailedLine);
 }
