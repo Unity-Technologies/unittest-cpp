@@ -14,7 +14,8 @@ int RunAllTests(const char* suitName)
 {
 	TestReporterStdout reporter;
 	TestRunner runner(reporter);
-	return runner.RunTestsIf(Test::GetTestList(), suitName, AlwaysTrue(), 0);
+    AlwaysTrue alwaysTrue;
+	return runner.RunTestsIf(Test::GetTestList(), suitName, alwaysTrue, 0);
 }
 
 
