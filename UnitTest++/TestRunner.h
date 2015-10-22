@@ -41,7 +41,7 @@ public:
 
 	template< class Predicate >
 	int RunTestsIf(TestList const& list, char const* suiteName, 
-				   const Predicate& predicate, int maxTestTimeInMs) const
+				   Predicate& predicate, int maxTestTimeInMs) const
 	{
 	    Test* curTest = list.GetHead();
 
@@ -55,6 +55,12 @@ public:
 
 	    return Finish();
 	}	
+	template <class Predicate>
+	int RunTestsIf(TestList const& list, char const* suiteName,
+				   const Predicate& predicate, int maxTestTimeInMs) const
+    {
+        return RunTestsIf(list, suiteName, const_cast<Predicate&>(predicate), maxTestTimeInMs);
+    }
 
 	TestResults* GetTestResults();
 
