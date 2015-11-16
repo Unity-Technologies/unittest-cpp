@@ -6,7 +6,7 @@ namespace UnitTest {
 
 char const* MemoryOutStream::GetText() const
 {
-	m_text = this->str();
+    m_text = this->str().c_str();
 	return m_text.c_str();
 }
 

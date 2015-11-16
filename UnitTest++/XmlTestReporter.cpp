@@ -37,7 +37,7 @@ string BuildFailureMessage(string const& file, int line, string const& message)
 {
     ostringstream failureMessage;
     failureMessage << file << "(" << line << ") : " << message;
-    return failureMessage.str();
+    return failureMessage.str().c_str();
 }
 
 }
