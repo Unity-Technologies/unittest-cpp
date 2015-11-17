@@ -39,7 +39,8 @@
     do \
     { \
         try { \
-            if (!UnitTest::Check(value)) \
+            bool valueToCheck = value; \
+            if (!UnitTest::Check(valueToCheck)) \
             { \
                 UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__), #value); \
                 DEBUG_BREAK; \
@@ -56,7 +57,8 @@
     do \
     { \
         try { \
-            if (!UnitTest::Check(value)) \
+            bool valueToCheck = value; \
+            if (!UnitTest::Check(valueToCheck)) \
             { \
                 UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__), message); \
                 DEBUG_BREAK; \
