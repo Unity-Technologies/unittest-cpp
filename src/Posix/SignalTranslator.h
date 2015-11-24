@@ -3,7 +3,7 @@
 
 #include <setjmp.h>
 
-#if UNITY_PS4
+#if __ORBIS__
 # include <sys/signal.h>
 # define siglongjmp(_env,_sig)		longjmp((_env),(_sig))	// siglongjmp not provided on PS4
 # define sigsetjmp(_env,_savesigs)	setjmp((_env))			// sigsetjmp not provided on PS4
