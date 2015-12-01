@@ -2,6 +2,7 @@
 #define UNITTEST_TESTDETAILS_H
 
 #include "HelperMacros.h"
+#include "TestProperty.h"
 
 namespace UnitTest {
 
@@ -24,6 +25,7 @@ public:
 	char const* category;
     int lineNumber;
     mutable bool timeConstraintExempt;
+	TestProperties properties;
 };
 
 }

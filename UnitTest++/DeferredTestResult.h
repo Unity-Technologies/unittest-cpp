@@ -2,6 +2,7 @@
 #define UNITTEST_DEFERREDTESTRESULT_H
 
 #include "Config.h"
+#include "TestProperty.h"
 #ifndef UNITTEST_NO_DEFERRED_REPORTER
 
 #include "HelperMacros.h"
@@ -42,6 +43,8 @@ public:
     std::string testName;
     std::string failureFile;
     
+	TestProperties reportedProperties;
+
     typedef std::vector< DeferredTestFailure > FailureVec;
     FailureVec failures;
     

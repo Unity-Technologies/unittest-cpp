@@ -6,9 +6,10 @@
 #include "MemoryOutStream.h"
 
 #include <cstring>
+#include <vector>
 
-
-namespace UnitTest {
+namespace UnitTest
+{
 
 int RunAllTests(const char* suitName)
 {

@@ -6,7 +6,8 @@
 #include "CurrentTest.h"
 #include <string.h>
 
-namespace UnitTest {
+namespace UnitTest
+{
 
 class TestReporter;
 class TestResults;
@@ -47,7 +48,7 @@ public:
 
 	    while (curTest != 0)
 	    {
-		    if (IsTestInSuite(curTest, suiteName) && predicate(curTest))
+		    if (IsTestInSuite(curTest,suiteName) && predicate(curTest))
 				RunTest(m_result, curTest, maxTestTimeInMs);
 
 			curTest = curTest->m_nextTest;

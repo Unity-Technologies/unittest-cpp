@@ -33,6 +33,12 @@ namespace UnitTest {
     r.timeElapsed = secondsElapsed;
 	}
 
+	void DeferredTestReporter::ReportTestProperty(TestDetails const& test, const char* propName, const UnitTest::TestProperty& propValue)
+	{
+		DeferredTestResult& r = m_results.back();
+		r.reportedProperties[propName] = propValue;
+	}
+
 	DeferredTestReporter::DeferredTestResultList& DeferredTestReporter::GetResults()
 	{
     return m_results;

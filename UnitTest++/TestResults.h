@@ -3,10 +3,12 @@
 
 #include "HelperMacros.h"
 
-namespace UnitTest {
+namespace UnitTest
+{
 
 class TestReporter;
 class TestDetails;
+class TestProperty;
 
 class UNITTEST_LINKAGE TestResults
 {
@@ -16,6 +18,7 @@ public:
     void OnTestStart(TestDetails const& test);
     void OnTestFailure(TestDetails const& test, char const* failure);
     void OnTestFinish(TestDetails const& test, float secondsElapsed);
+	void OnTestReportPropery(TestDetails const& test, const char* propName, const TestProperty& propValue);
 
     int GetTotalTestCount() const;
     int GetFailedTestCount() const;

@@ -19,8 +19,8 @@ TestDetails::TestDetails(const TestDetails& details, int lineNumber_)
     , lineNumber(lineNumber_)
 	, category(details.category)
     , timeConstraintExempt(details.timeConstraintExempt)
+	, properties(details.properties)
 {
 }
-
 
 }

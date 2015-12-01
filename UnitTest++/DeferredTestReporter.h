@@ -24,6 +24,7 @@ public:
     virtual void ReportTestStart(TestDetails const& details);
     virtual void ReportFailure(TestDetails const& details, char const* failure);
     virtual void ReportTestFinish(TestDetails const& details, float secondsElapsed);
+	virtual void ReportTestProperty(TestDetails const& test, const char* propName, const UnitTest::TestProperty& propValue);
 
     typedef std::list< DeferredTestResult > DeferredTestResultList;
     DeferredTestResultList& GetResults();
