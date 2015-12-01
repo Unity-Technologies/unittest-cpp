@@ -28,6 +28,10 @@ void TestReporterFormat::ReportTestFinish(TestDetails const& /*test*/, float)
 {
 }
 
+void TestReporterFormat::ReportTestProperty(TestDetails const& /*test*/, const char* /*propName*/, const UnitTest::TestProperty& /*propValue*/)
+{
+}
+
 void TestReporterFormat::ReportSummary(int const totalTestCount, int const failedTestCount,
                                        int const failureCount, float secondsElapsed)
 {

@@ -10,8 +10,9 @@
 #include "TestResults.h"
 
 #include "TestMacros.h"
-
 #include "CheckMacros.h"
+#include "ReportMacros.h"
+
 #include "TestRunner.h"
 #include "TimeConstraint.h"
 

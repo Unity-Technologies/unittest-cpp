@@ -6,7 +6,8 @@
 #include "CurrentTest.h"
 #include <string.h>
 
-namespace UnitTest {
+namespace UnitTest
+{
 
 class TestReporter;
 class TestResults;
@@ -43,19 +44,19 @@ public:
 	int RunTestsIf(TestList const& list, char const* suiteName, 
 				   Predicate& predicate, int maxTestTimeInMs) const
 	{
-	    Test* curTest = list.GetHead();
+		Test* curTest = list.GetHead();
 
-	    while (curTest != 0)
-	    {
-		    if (IsTestInSuite(curTest,suiteName) && predicate(curTest))
+		while (curTest != 0)
+		{
+			if (IsTestInSuite(curTest, suiteName) && predicate(curTest))
 			{
 				RunTest(m_result, curTest, maxTestTimeInMs);
 			}
 
 			curTest = curTest->next;
-	    }
+		}
 
-	    return Finish();
+		return Finish();
 	}	
 	template <class Predicate>
 	int RunTestsIf(TestList const& list, char const* suiteName,

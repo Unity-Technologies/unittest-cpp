@@ -1,6 +1,8 @@
 #ifndef UNITTEST_DEFERREDTESTRESULT_H
 #define UNITTEST_DEFERREDTESTRESULT_H
 
+#include "TestProperty.h"
+
 #include <string>
 #include <list>
 
@@ -21,6 +23,8 @@ public:
     std::string testName;
     std::string failureFile;
     
+	TestProperties reportedProperties;
+
     typedef std::pair< int, std::string > Failure;
     typedef std::list< Failure > FailureVec;
     FailureVec failures;

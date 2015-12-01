@@ -1,6 +1,8 @@
 #ifndef UNITTEST_TESTDETAILS_H
 #define UNITTEST_TESTDETAILS_H
 
+#include "TestProperty.h"
+
 namespace UnitTest {
 
 class TestDetails
@@ -21,6 +23,7 @@ public:
     char const* filename;
 	char const* category;
     int lineNumber;
+	TestProperties properties;
 };
 
 }

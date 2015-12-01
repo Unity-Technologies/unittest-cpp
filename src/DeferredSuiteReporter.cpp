@@ -48,6 +48,13 @@ void DeferredSuiteReporter::ReportTestFinish(TestDetails const&, float secondsEl
 	suite.timeElapsed += secondsElapsed;
 }
 
+void DeferredSuiteReporter::ReportTestProperty(TestDetails const& test, const char* propName, const UnitTest::TestProperty& propValue)
+{
+	DeferredSuiteResult& suite = m_results.back();
+	DeferredTestResult& r = suite.results.back();
+	r.reportedProperties[propName] = propValue;
+}
+
 void DeferredSuiteReporter::ReportSummary(int totalTestCount, int failedTestCount,
                                           int failureCount, float secondsElapsed)
 {
