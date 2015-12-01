@@ -49,6 +49,12 @@ void CompositeTestReporter::ReportTestStart(TestDetails const& test)
 		m_reporters[index]->ReportTestStart(test);
 }
 
+void CompositeTestReporter::ReportTestProperty(TestDetails const& test, char const* propName, TestProperty const& propValue)
+{
+	for (int index = 0; index < m_reporterCount; ++index)
+		m_reporters[index]->ReportTestProperty(test, propName, propValue);
+}
+
 void CompositeTestReporter::ReportTestFinish(TestDetails const& test, float secondsElapsed)
 {
 	for (int index = 0; index < m_reporterCount; ++index)

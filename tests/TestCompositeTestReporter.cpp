@@ -34,6 +34,11 @@ struct MockReporter : TestReporter
 		testStartDetails = &test;
 	}
 
+	virtual void ReportTestProperty(TestDetails const& test, char const* propName, TestProperty const& propValue)
+	{
+
+	}
+
 	virtual void ReportFailure(TestDetails const& test, char const* failure)
 	{
 		failureCalled = true;

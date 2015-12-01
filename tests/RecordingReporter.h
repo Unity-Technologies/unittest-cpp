@@ -43,6 +43,11 @@ public:
         strcpy(lastStartedTest, test.testName);
     }
 
+	virtual void ReportTestProperty(UnitTest::TestDetails const& test, char const* propName, UnitTest::TestProperty const& propValue)
+	{
+
+	}
+
     virtual void ReportFailure(UnitTest::TestDetails const& test, char const* failure)
     {
 		using namespace std;

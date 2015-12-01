@@ -15,6 +15,7 @@ public:
     bool RemoveReporter(TestReporter* reporter);
 
     virtual void ReportTestStart(TestDetails const& test);
+	virtual void ReportTestProperty(TestDetails const& test, char const* propName, TestProperty const& propValue);
     virtual void ReportFailure(TestDetails const& test, char const* failure);
     virtual void ReportTestFinish(TestDetails const& test, float secondsElapsed);
     virtual void ReportSummary(int totalTestCount, int failedTestCount, int failureCount, float secondsElapsed);
