@@ -8,4 +8,4 @@
 #endif
 
 #define REPORT_TEST_PROPERTY(NAME, VALUE)                                  \
-	do { UnitTest::CurrentTest::Results()->OnTestReportPropery(m_details, NAME, TestProperty(VALUE)); } while (0)
+	do { UnitTest::CurrentTest::Results()->OnTestReportPropery(m_details, NAME, UnitTest::TestProperty(VALUE)); } while (0)
