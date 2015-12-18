@@ -1,22 +1,17 @@
 #pragma once
 
+#include "MemoryOutStream.h"
+
 #include <map>
 #include <string>
 
 namespace UnitTest
 {
 
+// Simple "variant"-like property which is used to store custom test data.
 class TestProperty
 {
 public:
-// 	enum ResultType
-// 	{
-// 		kMemoryPeak = 0,     //!< Maximum memory usage during test execution (bytes).
-// 		kMemoryUsed,         //!< Used memory after a test (bytes).
-// 		kMemoryReserved,     //!< Reserved memory after a test (bytes).
-// 		kTestTime,           //!< Test body execution time (ns).
-// 	};
-
 	enum Type
 	{
 		kInt = 0,
@@ -40,14 +35,16 @@ public:
 
 	std::string AsString() const
 	{
+		MemoryOutStream stream;
 		switch (type)
 		{
-		case kInt: return AsStringHelper("%i", intValue);
-		case kLong: return AsStringHelper("%lli", longValue);
-		case kFloat: return AsStringHelper("%f", floatValue);
-		case kDouble: return AsStringHelper("%f", doubleValue);
+		case kInt: stream << intValue; break;
+		case kLong: stream << longValue; break;
+		case kFloat: stream << floatValue; break;
+		case kDouble: stream << doubleValue; break;
 		case kString: return stringValue;
 		}
+		return stream.GetText();
 	}
 
 	Type type;
@@ -59,20 +56,6 @@ public:
 		double doubleValue;
 	};
 	std::string stringValue;
-
-private:
-	template<typename T>
-	static std::string AsStringHelper(const char* fmt, T value)
-	{
-		char buf[255];
-#ifdef WIN32
-		_snprintf
-#else
-		snprintf
-#endif
-			(buf, sizeof(buf), fmt, value);
-		return buf;
-	}
 };
 
 typedef std::map<std::string, TestProperty> TestProperties;
