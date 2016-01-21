@@ -6,8 +6,7 @@
 #include "CurrentTest.h"
 #include <string.h>
 
-namespace UnitTest
-{
+namespace UnitTest {
 
 class TestReporter;
 class TestResults;

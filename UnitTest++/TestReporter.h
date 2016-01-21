@@ -3,8 +3,7 @@
 
 #include "HelperMacros.h"
 
-namespace UnitTest
-{
+namespace UnitTest {
 
 class TestDetails;
 class TestProperty;
