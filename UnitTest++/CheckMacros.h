@@ -229,5 +229,20 @@
 		CHECK_THROW(expression, UnitTest::AssertException); \
 		UnitTest::Detail::ExpectAssert(false); \
 	UNITTEST_MULTILINE_MACRO_END
+
 #endif
+
+#define CHECK_CONTAINS(haystackBegin, haystackEnd, needle) \
+    UNITTEST_MULTILINE_MACRO_BEGIN \
+        try { \
+            if (!UnitTest::CheckContains(*UnitTest::CurrentTest::Results(), haystackBegin, haystackEnd, needle, UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__))) \
+                DEBUG_BREAK; \
+        } \
+        catch (...) { \
+            UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__), \
+                    "Unhandled exception in CHECK_CONTAINS(" #haystackBegin ", " #haystackEnd ", " #needle ")"); \
+            DEBUG_BREAK; \
+        } \
+    UNITTEST_MULTILINE_MACRO_END
+
 #endif
