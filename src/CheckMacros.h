@@ -150,7 +150,7 @@
         } \
         catch (...) { \
             UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__), \
-                    "Unhandled exception in CHECK_ARRAY_CLOSE(" #expected ", " #actual ")"); \
+                    "Unhandled exception in CHECK_ARRAY2D_CLOSE(" #expected ", " #actual ")"); \
             DEBUG_BREAK; \
         } \
     } while (0)
@@ -172,5 +172,19 @@
 
 #define CHECK_ASSERT(expression) \
     CHECK_THROW(expression, UnitTest::AssertException);
+
+#define CHECK_CONTAINS(haystackBegin, haystackEnd, needle) \
+    do \
+    { \
+        try { \
+            if (!UnitTest::CheckContains(*UnitTest::CurrentTest::Results(), haystackBegin, haystackEnd, needle, UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__))) \
+                DEBUG_BREAK; \
+        } \
+        catch (...) { \
+            UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __LINE__), \
+                    "Unhandled exception in CHECK_CONTAINS(" #haystackBegin ", " #haystackEnd ", " #needle ")"); \
+            DEBUG_BREAK; \
+        } \
+    } while (0)
 
 #endif

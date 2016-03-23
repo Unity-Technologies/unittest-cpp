@@ -187,6 +187,32 @@ bool CheckArray2DClose(TestResults& results, Expected const& expected, Actual co
     return true;
 }
 
+template<typename HaystackIterator, typename Needle>
+bool CheckContains(TestResults& results, HaystackIterator begin, HaystackIterator end, Needle needle, TestDetails const& details)
+{
+    if (std::find(begin, end, needle) == end)
+    {
+        UnitTest::MemoryOutStream message;
+
+        // Make sure the message starts with the text "Expected" so that the ConsoleTestReporter will print it.
+        message << "Expected to find '" << needle << "', but it was not there.\n";
+        message << "Collection count: " << std::distance(begin, end) << std::endl;
+        message << "The first few:\n";
+        int i = 0;
+        HaystackIterator it = begin;
+        while (it != end && i < 3)
+        {
+            message << "\t'" << *it << "'\n";
+            ++it;
+            ++i;
+        }
+
+        results.OnTestFailure(details, message.GetText());
+        return false;
+    }
+    return true;
+}
+
 }
 
 #endif
