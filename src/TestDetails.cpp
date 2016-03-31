@@ -6,8 +6,8 @@ TestDetails::TestDetails(char const* testName_, char const* suiteName_, const ch
     : suiteName(suiteName_)
     , testName(testName_)
     , filename(filename_)
-    , lineNumber(lineNumber_)
 	, category(category)
+    , lineNumber(lineNumber_)
 {
 }
 
