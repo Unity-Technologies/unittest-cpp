@@ -37,6 +37,11 @@ UNITTEST_LINKAGE bool CheckEqual(TestResults& results, char* expected, char cons
 
 UNITTEST_LINKAGE bool CheckEqual(TestResults& results, char const* expected, char* actual, TestDetails const& details);
 
+inline bool CheckEqual(TestResults& results, const std::string& expected, const std::string& actual, TestDetails const& defails)
+{
+	return CheckEqual(results, expected.c_str(), actual.c_str(), defails);
+}
+
 template< typename Expected, typename Actual, typename Tolerance >
 bool AreClose(Expected const& expected, Actual const& actual, Tolerance const& tolerance)
 {
