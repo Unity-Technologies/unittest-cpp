@@ -10,7 +10,7 @@ bool CheckStringsEqual(TestResults& results, char const* expected, char const* a
 {
 	using namespace std;
 
-    if (strcmp(expected, actual))
+    if ((expected != actual) && strcmp(expected, actual))
     {
         UnitTest::MemoryOutStream stream;
         stream << "Expected " << expected << " but was " << actual;
