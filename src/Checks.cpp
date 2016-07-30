@@ -10,16 +10,35 @@ bool CheckStringsEqual(TestResults& results, char const* expected, char const* a
 {
 	using namespace std;
 
-	// Before calling strcmp, just compare the pointers - it may be an optimization, but it also means CHECK() for NULL strings can pass without crashing.
-    if ((expected != actual) && strcmp(expected, actual))
+    if (expected == actual)
+        return true;
+    else if (expected == NULL && actual != NULL)
     {
         UnitTest::MemoryOutStream stream;
-        stream << "Expected " << expected << " but was " << actual;
+        stream << "Expected string was null but actual was " << actual;
+
+        results.OnTestFailure(details, stream.GetText());
+        return false;
+
+    }
+    else if (expected != NULL && actual == NULL)
+    {
+        UnitTest::MemoryOutStream stream;
+        stream << "Expected " << expected << " but was null";
 
         results.OnTestFailure(details, stream.GetText());
         return false;
     }
-    return true;
+    else if (strcmp(expected, actual) != 0) 
+    {
+        UnitTest::MemoryOutStream stream;
+        stream << "Expected " << expected << " but actual was " << actual;
+
+        results.OnTestFailure(details, stream.GetText());
+        return false;
+    }
+    else
+        return true;
 }
 
 }
