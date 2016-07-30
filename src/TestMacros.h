@@ -105,12 +105,12 @@ namespace UnitTestCategory
 		catch (...) {																 \
 			if (ctorOk)																 \
 			{																		 \
-	            UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(m_details, __LINE__),	 \
+	            UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(m_details, __FILE__, __LINE__),	 \
 					"Unhandled exception while destroying fixture " #Fixture);		 \
 			}																		 \
 			else																	 \
 			{																		 \
-				UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(m_details, __LINE__),   \
+				UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(m_details, __FILE__, __LINE__),   \
 					"Unhandled exception while constructing fixture " #Fixture);         \
 			}																		 \
 		}																			 \
