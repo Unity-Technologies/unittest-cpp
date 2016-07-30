@@ -127,7 +127,7 @@ SUITE(CheckEqualExceptionTests)
 
         CHECK_EQUAL("testName", reporter.lastFailedTest);
         CHECK_EQUAL("suiteName", reporter.lastFailedSuite);
-        CHECK_EQUAL("filename", reporter.lastFailedFile);
+        CHECK_EQUAL(__FILE__, reporter.lastFailedFile);
         CHECK_EQUAL(line, reporter.lastFailedLine);
     }
 
@@ -137,7 +137,7 @@ SUITE(CheckEqualExceptionTests)
 
         CHECK_EQUAL("testName", reporter.lastFailedTest);
         CHECK_EQUAL("suiteName", reporter.lastFailedSuite);
-        CHECK_EQUAL("filename", reporter.lastFailedFile);
+        CHECK_EQUAL(__FILE__, reporter.lastFailedFile);
         CHECK_EQUAL(line, reporter.lastFailedLine);
     }
 
@@ -178,14 +178,14 @@ SUITE(CheckCloseExceptionTests)
 
         void PerformCheckWithNonStdThrow()
         {
-            UnitTest::TestDetails const testDetails("closeTest", "closeSuite", "closeCategory", "filename", -1);
+            UnitTest::TestDetails const testDetails("closeTest", "closeSuite", "closeCategory", __FILE__, -1);
             ScopedCurrentTest scopedResults(testResults, &testDetails);
             CHECK_CLOSE(static_cast<float>(ThrowingFunction()), 1.0001f, 0.1f); line = __LINE__;
         }
 
         void PerformCheckWithStdThrow()
         {
-            UnitTest::TestDetails const testDetails("closeTest", "closeSuite", "closeCategory", "filename", -1);
+            UnitTest::TestDetails const testDetails("closeTest", "closeSuite", "closeCategory", __FILE__, -1);
             ScopedCurrentTest scopedResults(testResults, &testDetails);
             CHECK_CLOSE(static_cast<float>(ThrowingStdExceptionFunction()), 1.0001f, 0.1f); line = __LINE__;
         }
@@ -215,7 +215,7 @@ SUITE(CheckCloseExceptionTests)
 
         CHECK_EQUAL("closeTest", reporter.lastFailedTest);
         CHECK_EQUAL("closeSuite", reporter.lastFailedSuite);
-        CHECK_EQUAL("filename", reporter.lastFailedFile);
+        CHECK_EQUAL(__FILE__, reporter.lastFailedFile);
         CHECK_EQUAL(line, reporter.lastFailedLine);
     }
 
@@ -225,7 +225,7 @@ SUITE(CheckCloseExceptionTests)
 
         CHECK_EQUAL("closeTest", reporter.lastFailedTest);
         CHECK_EQUAL("closeSuite", reporter.lastFailedSuite);
-        CHECK_EQUAL("filename", reporter.lastFailedFile);
+        CHECK_EQUAL(__FILE__, reporter.lastFailedFile);
         CHECK_EQUAL(line, reporter.lastFailedLine);
     }
 
@@ -309,7 +309,7 @@ SUITE(CheckArrayCloseExceptionTests)
 
         CHECK_EQUAL("arrayCloseTest", reporter.lastFailedTest);
         CHECK_EQUAL("arrayCloseSuite", reporter.lastFailedSuite);
-        CHECK_EQUAL("filename", reporter.lastFailedFile);
+        CHECK_EQUAL(__FILE__, reporter.lastFailedFile);
         CHECK_EQUAL(line, reporter.lastFailedLine);
     }
 
@@ -319,7 +319,7 @@ SUITE(CheckArrayCloseExceptionTests)
 
         CHECK_EQUAL("arrayCloseTest", reporter.lastFailedTest);
         CHECK_EQUAL("arrayCloseSuite", reporter.lastFailedSuite);
-        CHECK_EQUAL("filename", reporter.lastFailedFile);
+        CHECK_EQUAL(__FILE__, reporter.lastFailedFile);
         CHECK_EQUAL(line, reporter.lastFailedLine);
     }
 
@@ -399,7 +399,7 @@ SUITE(CheckArrayEqualExceptionTests)
 
         CHECK_EQUAL("arrayEqualTest", reporter.lastFailedTest);
         CHECK_EQUAL("arrayEqualSuite", reporter.lastFailedSuite);
-        CHECK_EQUAL("filename", reporter.lastFailedFile);
+        CHECK_EQUAL(__FILE__, reporter.lastFailedFile);
         CHECK_EQUAL(line, reporter.lastFailedLine);
     }
 
@@ -409,7 +409,7 @@ SUITE(CheckArrayEqualExceptionTests)
 
         CHECK_EQUAL("arrayEqualTest", reporter.lastFailedTest);
         CHECK_EQUAL("arrayEqualSuite", reporter.lastFailedSuite);
-        CHECK_EQUAL("filename", reporter.lastFailedFile);
+        CHECK_EQUAL(__FILE__, reporter.lastFailedFile);
         CHECK_EQUAL(line, reporter.lastFailedLine);
     }
 
@@ -507,7 +507,7 @@ SUITE(CheckArray2DExceptionTests)
 
         CHECK_EQUAL("array2DCloseTest", reporter.lastFailedTest);
         CHECK_EQUAL("array2DCloseSuite", reporter.lastFailedSuite);
-        CHECK_EQUAL("filename", reporter.lastFailedFile);
+        CHECK_EQUAL(__FILE__, reporter.lastFailedFile);
         CHECK_EQUAL(line, reporter.lastFailedLine);
     }
 
@@ -517,7 +517,7 @@ SUITE(CheckArray2DExceptionTests)
 
         CHECK_EQUAL("array2DCloseTest", reporter.lastFailedTest);
         CHECK_EQUAL("array2DCloseSuite", reporter.lastFailedSuite);
-        CHECK_EQUAL("filename", reporter.lastFailedFile);
+        CHECK_EQUAL(__FILE__, reporter.lastFailedFile);
         CHECK_EQUAL(line, reporter.lastFailedLine);
     }
 

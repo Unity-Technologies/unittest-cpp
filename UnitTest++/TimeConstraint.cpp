@@ -6,8 +6,8 @@
 namespace UnitTest {
 
 
-TimeConstraint::TimeConstraint(int ms, TestDetails const& details, int lineNumber)
-	: m_details(details, lineNumber)
+TimeConstraint::TimeConstraint(int ms, TestDetails const& details, const char* fileName, int lineNumber)
+	: m_details(details, fileName, lineNumber)
     , m_maxMs(ms)
 {
     m_timer.Start();

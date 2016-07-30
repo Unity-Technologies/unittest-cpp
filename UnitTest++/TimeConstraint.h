@@ -12,7 +12,7 @@ class TestResults;
 class UNITTEST_LINKAGE TimeConstraint
 {
 public:
-    TimeConstraint(int ms, TestDetails const& details, int lineNumber);
+    TimeConstraint(int ms, TestDetails const& details, const char* fileName, int lineNumber);
     ~TimeConstraint();
 
 private:
@@ -25,7 +25,7 @@ private:
 };
 
 #define UNITTEST_TIME_CONSTRAINT(ms) \
-	UnitTest::TimeConstraint unitTest__timeConstraint__(ms, m_details, __LINE__)
+	UnitTest::TimeConstraint unitTest__timeConstraint__(ms, m_details, __FILE__, __LINE__)
 
 #define UNITTEST_TIME_CONSTRAINT_EXEMPT() \
 	UNITTEST_MULTILINE_MACRO_BEGIN \

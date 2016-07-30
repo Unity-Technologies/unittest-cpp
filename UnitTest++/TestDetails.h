@@ -17,7 +17,7 @@ public:
 		, lineNumber (-1) {}
 
     TestDetails(char const* testName, char const* suiteName, const char* category, char const* filename, int lineNumber);
-    TestDetails(const TestDetails& details, int lineNumber);
+    TestDetails(const TestDetails& details, char const* filename, int lineNumber);
 
     char const* suiteName;
     char const* testName;
