@@ -25,6 +25,14 @@
 	#error UnitTest++ redefines TEST_FIXTURE_EX
 #endif
 
+#ifndef CREATE_TEST_ATTRIBUTES
+    #define CREATE_TEST_ATTRIBUTES(...)
+#endif
+
+#ifndef DESTROY_TEST_ATTRIBUTES
+    #define DESTROY_TEST_ATTRIBUTES()
+#endif
+
 namespace UnitTestCategory
 {
 	inline const char* GetCategoryName()
@@ -43,13 +51,17 @@ namespace UnitTestCategory
     }                                                                       \
 	namespace Suite##Name
 
-#define TEST_EX(Name, List)                                                \
+#define TEST_EX(Name, List, ...)                                           \
     class Test##Name : public UnitTest::Test                               \
     {                                                                      \
     public:                                                                \
 		Test##Name() : Test(#Name, UnitTestSuite::GetSuiteName(), UnitTestCategory::GetCategoryName(), __FILE__, __LINE__) {}  \
+        virtual void CreateAttributes(std::vector<const UnitTest::TestAttribute*>& attributes) const \
+            { CREATE_TEST_ATTRIBUTES(__VA_ARGS__); }                       \
+        virtual void DestroyAttributes(std::vector<const UnitTest::TestAttribute*>& attributes) const   \
+            { DESTROY_TEST_ATTRIBUTES(); }                                 \
     private:                                                               \
-        virtual void RunImpl() const;   \
+        virtual void RunImpl() const;                                      \
     } test##Name##Instance;                                                \
 																		   \
     UnitTest::ListAdder adder##Name (List, &test##Name##Instance);         \
@@ -57,10 +69,10 @@ namespace UnitTestCategory
     void Test##Name::RunImpl() const
 
 
-#define TEST(Name) TEST_EX(Name, UnitTest::Test::GetTestList())
+#define TEST(Name, ...) TEST_EX(Name, UnitTest::Test::GetTestList(), __VA_ARGS__)
 
 
-#define TEST_FIXTURE_EX(Fixture, Name, List)                                         \
+#define TEST_FIXTURE_EX(Fixture, Name, List, ...)                                    \
     class Fixture##Name##Helper : public Fixture									 \
 	{																				 \
 	public:																			 \
@@ -76,6 +88,10 @@ namespace UnitTestCategory
     {                                                                                \
     public:                                                                          \
 	    Test##Fixture##Name() : Test(#Name, UnitTestSuite::GetSuiteName(), UnitTestCategory::GetCategoryName(), __FILE__, __LINE__) {} \
+        virtual void CreateAttributes(std::vector<const UnitTest::TestAttribute*>& attributes) const \
+            { CREATE_TEST_ATTRIBUTES(__VA_ARGS__); }                                 \
+        virtual void DestroyAttributes(std::vector<const UnitTest::TestAttribute*>& attributes) const   \
+            { DESTROY_TEST_ATTRIBUTES(); }                                           \
     private:                                                                         \
         virtual void RunImpl() const;             \
     } test##Fixture##Name##Instance;                                                 \
@@ -117,7 +133,7 @@ namespace UnitTestCategory
     }                                                                                \
     void Fixture##Name##Helper::RunImpl()
 
-#define TEST_FIXTURE(Fixture,Name) TEST_FIXTURE_EX(Fixture, Name, UnitTest::Test::GetTestList())
+#define TEST_FIXTURE(Fixture,Name,...) TEST_FIXTURE_EX(Fixture, Name, UnitTest::Test::GetTestList(),__VA_ARGS__)
 
 
 #endif

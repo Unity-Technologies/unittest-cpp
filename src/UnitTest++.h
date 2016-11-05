@@ -8,6 +8,7 @@
 #include "TestList.h"
 #include "TestSuite.h"
 #include "TestResults.h"
+#include "TestAttribute.h"
 
 #include "TestMacros.h"
 
