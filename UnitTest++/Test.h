@@ -2,11 +2,13 @@
 #define UNITTEST_TEST_H
 
 #include "TestDetails.h"
+#include <vector>
 
 namespace UnitTest {
 
 class TestResults;
 class TestList;
+struct TestAttribute;
 
 class UNITTEST_LINKAGE Test
 {
@@ -24,9 +26,18 @@ public:
 
     virtual void RunImpl() const;
 
+	const std::vector<const TestAttribute*>& Attributes() const;
+	
+protected:
+	virtual void CreateAttributes(std::vector<const TestAttribute*>& attributes) const { }
+    virtual void DestroyAttributes(std::vector<const TestAttribute*>& attributes) const { }
+
 private:
 	Test(Test const&);
     Test& operator =(Test const&);
+
+	mutable bool m_AttributesInited;
+    mutable std::vector<const TestAttribute*> m_Attributes;
 };
 
 
