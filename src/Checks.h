@@ -42,6 +42,33 @@ inline bool CheckEqual(TestResults& results, const std::string& expected, const 
 	return CheckEqual(results, expected.c_str(), actual.c_str(), details);
 }
 
+template< typename Comperand, typename Actual >
+bool CheckNotEqual(TestResults& results, Comperand const& comperant, Actual const& actual, TestDetails const& details)
+{
+    if (!(comperant != actual))
+    {
+        UnitTest::MemoryOutStream stream;
+        stream << "Expected to be different from " << comperant << " but was equal to it";
+
+        results.OnTestFailure(details, stream.GetText());
+        return false;
+    }
+    return true;
+}
+
+bool CheckNotEqual(TestResults& results, char const* comperant, char const* actual, TestDetails const& details);
+
+bool CheckNotEqual(TestResults& results, char* comperant, char* actual, TestDetails const& details);
+
+bool CheckNotEqual(TestResults& results, char* comperant, char const* actual, TestDetails const& details);
+
+bool CheckNotEqual(TestResults& results, char const* comperant, char* actual, TestDetails const& details);
+
+inline bool CheckNotEqual(TestResults& results, const std::string& comperant, const std::string& actual, TestDetails const& details)
+{
+	return CheckNotEqual(results, comperant.c_str(), actual.c_str(), details);
+}
+
 template< typename Expected, typename Actual, typename Tolerance >
 bool AreClose(Expected const& expected, Actual const& actual, Tolerance const& tolerance)
 {
