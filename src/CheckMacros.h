@@ -103,6 +103,20 @@
         } \
     } while (0)
 
+#define CHECK_NULL(value) \
+do \
+    { \
+        try { \
+            if (!UnitTest::CheckEqual(*UnitTest::CurrentTest::Results(), static_cast<void*>(NULL), static_cast<void*>(value), UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __FILE__, __LINE__))) \
+                DEBUG_BREAK; \
+        } \
+        catch (...) { \
+            UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __FILE__, __LINE__), \
+                    "Unhandled exception in CHECK_NULL(" #value ")"); \
+            DEBUG_BREAK; \
+        } \
+    } while (0)
+
 #define CHECK_CLOSE(expected, actual, tolerance) \
     do \
     { \
