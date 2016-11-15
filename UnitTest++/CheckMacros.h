@@ -18,6 +18,10 @@
 	#error UnitTest++ redefines CHECK_EQUAL
 #endif
 
+#ifdef CHECK_NOT_EQUAL
+	#error UnitTest++ redefines CHECK_NOT_EQUAL
+#endif
+
 #ifdef CHECK_CLOSE
 	#error UnitTest++ redefines CHECK_CLOSE
 #endif
@@ -103,6 +107,20 @@
             DEBUG_BREAK; \
         }) \
 	UNITTEST_MULTILINE_MACRO_END
+
+#define CHECK_NOT_EQUAL(comperand, actual) \
+    do \
+    { \
+        try { \
+            if (!UnitTest::CheckNotEqual(*UnitTest::CurrentTest::Results(), comperand, actual, UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __FILE__, __LINE__))) \
+                DEBUG_BREAK; \
+        } \
+        catch (...) { \
+            UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __FILE__, __LINE__), \
+                    "Unhandled exception in CHECK_NOT_EQUAL(" #comperand ", " #actual ")"); \
+            DEBUG_BREAK; \
+        } \
+    } while (0)
 
 #define CHECK_CLOSE(expected, actual, tolerance) \
 	UNITTEST_MULTILINE_MACRO_BEGIN \
