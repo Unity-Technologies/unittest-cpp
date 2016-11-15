@@ -136,6 +136,20 @@ do \
         } \
     } while (0)
 
+#define CHECK_NOT_NULL(value) \
+    do \
+    { \
+        try { \
+            if (!UnitTest::CheckNotEqual(*UnitTest::CurrentTest::Results(), static_cast<void*>(NULL), static_cast<void*>(value), UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __FILE__, __LINE__))) \
+                DEBUG_BREAK; \
+        } \
+        catch (...) { \
+            UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __FILE__, __LINE__), \
+                    "Unhandled exception in CHECK_NOT_NULL(" #value ")"); \
+            DEBUG_BREAK; \
+        } \
+    } while (0)
+
 #define CHECK_CLOSE(expected, actual, tolerance) \
 	UNITTEST_MULTILINE_MACRO_BEGIN \
         UT_TRY \
