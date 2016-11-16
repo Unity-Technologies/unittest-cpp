@@ -22,6 +22,14 @@
 	#error UnitTest++ redefines CHECK_NOT_EQUAL
 #endif
 
+#ifdef CHECK_NULL
+    #error UnitTest++ redefines CHECK_NULL
+#endif
+
+#ifdef CHECK_NOT_NULL
+    #error UnitTest++ redefines CHECK_NOT_NULL
+#endif
+
 #ifdef CHECK_CLOSE
 	#error UnitTest++ redefines CHECK_CLOSE
 #endif
