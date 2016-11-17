@@ -66,7 +66,7 @@ bool CheckNotEqual(TestResults& results, char const* comperant, char* actual, Te
 
 inline bool CheckNotEqual(TestResults& results, const std::string& comperant, const std::string& actual, TestDetails const& details)
 {
-	return CheckNotEqual(results, comperant.c_str(), actual.c_str(), details);
+    return CheckNotEqual(results, comperant.c_str(), actual.c_str(), details);
 }
 
 template< typename Expected, typename Actual, typename Tolerance >

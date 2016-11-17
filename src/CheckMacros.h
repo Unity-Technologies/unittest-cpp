@@ -16,7 +16,7 @@
 #endif
 
 #ifdef CHECK_NOT_EQUAL
-	#error UnitTest++ redefines CHECK_NOT_EQUAL
+    #error UnitTest++ redefines CHECK_NOT_EQUAL
 #endif
 
 #ifdef CHECK_NULL

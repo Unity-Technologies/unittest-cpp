@@ -44,16 +44,16 @@ bool CheckStringsEqual(TestResults& results, char const* expected, char const* a
 bool CheckStringsNotEqual(TestResults& results, char const* comperand, char const* actual,
                        TestDetails const& details)
 {
-	using namespace std;
+    using namespace std;
 
     if (comperand == actual)
-	{
-		UnitTest::MemoryOutStream stream;
+    {
+        UnitTest::MemoryOutStream stream;
         stream << "Expected strings to be different, but actualy they where pointing to the same thing";
 
         results.OnTestFailure(details, stream.GetText());
         return false;
-	}
+    }
     else if (comperand == NULL && actual != NULL)
         return true;
     else if (comperand != NULL && actual == NULL)
