@@ -42,7 +42,7 @@ namespace UnitTestCategory
 }
 
 #define SUITE(Name)                                                         \
-	namespace Suite##Name {                                                        \
+	namespace Suite##Name {                                                 \
         namespace UnitTestSuite {                                           \
             inline char const* GetSuiteName () {                            \
                 return #Name ;                                              \
@@ -50,6 +50,16 @@ namespace UnitTestCategory
         }                                                                   \
     }                                                                       \
 	namespace Suite##Name
+
+#define SUITE_WITH_POSTFIX(Name, Postfix)                                   \
+	namespace Suite##Name##Postfix {                                        \
+        namespace UnitTestSuite {                                           \
+            inline char const* GetSuiteName () {                            \
+                return #Name ;                                              \
+            }                                                               \
+        }                                                                   \
+    }                                                                       \
+	namespace Suite##Name##Postfix
 
 #define TEST_EX(Name, List, ...)                                           \
     class Test##Name : public UnitTest::Test                               \
