@@ -9,14 +9,14 @@ namespace UnitTest {
 
 
 template< typename Value >
-bool Check(Value const value)
+inline bool Check(Value const value)
 {
     return !!value; // doing double negative to avoid silly VS warnings
 }
 
 
 template< typename Expected, typename Actual >
-bool CheckEqual(TestResults& results, Expected const& expected, Actual const& actual, TestDetails const& details)
+inline bool CheckEqual(TestResults& results, Expected const& expected, Actual const& actual, TestDetails const& details)
 {
     if (!(expected == actual))
     {
@@ -43,7 +43,7 @@ inline bool CheckEqual(TestResults& results, const std::string& expected, const 
 }
 
 template< typename Comperand, typename Actual >
-bool CheckNotEqual(TestResults& results, Comperand const& comperant, Actual const& actual, TestDetails const& details)
+inline bool CheckNotEqual(TestResults& results, Comperand const& comperant, Actual const& actual, TestDetails const& details)
 {
     if (!(comperant != actual))
     {
