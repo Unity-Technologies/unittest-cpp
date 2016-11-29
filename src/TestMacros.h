@@ -41,25 +41,17 @@ namespace UnitTestCategory
 	}
 }
 
-#define SUITE(Name)                                                         \
-	namespace Suite##Name {                                                 \
+#define SUITE_WITH_NAMESPACE_NAME(SuiteName, NamespaceName)                 \
+	namespace NamespaceName {                                               \
         namespace UnitTestSuite {                                           \
             inline char const* GetSuiteName () {                            \
-                return #Name ;                                              \
+                return #SuiteName ;                                         \
             }                                                               \
         }                                                                   \
     }                                                                       \
-	namespace Suite##Name
+	namespace NamespaceName
 
-#define SUITE_WITH_POSTFIX(Name, Postfix)                                   \
-	namespace Suite##Name##Postfix {                                        \
-        namespace UnitTestSuite {                                           \
-            inline char const* GetSuiteName () {                            \
-                return #Name ;                                              \
-            }                                                               \
-        }                                                                   \
-    }                                                                       \
-	namespace Suite##Name##Postfix
+#define SUITE(Name) SUITE_WITH_NAMESPACE_NAME(Name, Suite ## Name)
 
 #define TEST_EX(Name, List, ...)                                           \
     class Test##Name : public UnitTest::Test                               \
