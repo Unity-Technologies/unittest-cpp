@@ -134,7 +134,7 @@
 do \
     { \
         try { \
-            if (!UnitTest::CheckEqual(*UnitTest::CurrentTest::Results(), static_cast<void*>(NULL), reinterpret_cast<void*>(value), UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __FILE__, __LINE__))) \
+            if (!UnitTest::CheckEqual(*UnitTest::CurrentTest::Results(), static_cast<const void*>(NULL), reinterpret_cast<const void*>(value), UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __FILE__, __LINE__))) \
                 DEBUG_BREAK; \
         } \
         catch (...) { \
@@ -148,7 +148,7 @@ do \
     do \
     { \
         try { \
-            if (!UnitTest::CheckNotEqual(*UnitTest::CurrentTest::Results(), static_cast<void*>(NULL), reinterpret_cast<void*>(value), UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __FILE__, __LINE__))) \
+            if (!UnitTest::CheckNotEqual(*UnitTest::CurrentTest::Results(), static_cast<const void*>(NULL), reinterpret_cast<const void*>(value), UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __FILE__, __LINE__))) \
                 DEBUG_BREAK; \
         } \
         catch (...) { \
