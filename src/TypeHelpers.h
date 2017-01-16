@@ -34,11 +34,8 @@ namespace UnitTest {
 		template<typename T>
 		struct Stringifier<true, T>
 		{
-			static std::string Stringify(T const& value, const char* defaultValue = NULL)
+			static std::string Stringify(T const& value, const char*)
 			{
-				// Silence any 'unused variable' warnings about defaultValue
-				do { if (false) (void)(defaultValue); } while(0);
-					
 				UnitTest::MemoryOutStream str;
 				str << value;
 				return str.GetText();
@@ -48,7 +45,7 @@ namespace UnitTest {
 		template<typename T>
 		struct Stringifier<false, T>
 		{
-			static std::string Stringify(T const&, const char* defaultValue = "<cannot display value>")
+			static std::string Stringify(T const&, const char* defaultValue)
 			{
 				UnitTest::MemoryOutStream str;
 				str << defaultValue;
@@ -58,10 +55,10 @@ namespace UnitTest {
 	}
 	
 	template<typename T>
-	struct TypeHelpers : public detail::Stringifier<detail::HasInsertionOperator<T>::value, T>
+	std::string Stringify(const T& value, const char* defaultValue = "<cannot display value>")
 	{
-		
-	};
+		return detail::Stringifier<detail::HasInsertionOperator<T>::value, T>::Stringify(value, defaultValue);
+	}
 }
 
 #endif
