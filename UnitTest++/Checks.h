@@ -4,6 +4,7 @@
 #include "Config.h"
 #include "TestResults.h"
 #include "MemoryOutStream.h"
+#include "TypeHelpers.h"
 
 namespace UnitTest {
 
@@ -21,7 +22,9 @@ inline bool CheckEqual(TestResults& results, Expected const& expected, Actual co
     if (!(expected == actual))
     {
         UnitTest::MemoryOutStream stream;
-        stream << "Expected " << expected << " but was " << actual;
+		stream << "Actual value did not match expected value!" << std::endl;
+		stream << "\tExpected: " << TypeHelpers<Expected>::Stringify(expected) << std::endl;
+		stream << "\t  Actual: " << TypeHelpers<Actual>::Stringify(actual) << std::endl;
 
         results.OnTestFailure(details, stream.GetText());
         return false;
@@ -48,7 +51,7 @@ inline bool CheckNotEqual(TestResults& results, Comperand const& comperant, Actu
     if (!(comperant != actual))
     {
         UnitTest::MemoryOutStream stream;
-        stream << "Expected to be different from " << comperant << " but was equal to it";
+		stream << "Expected to be different from " << TypeHelpers<Comperand>::Stringify(comperant) << " but was equal to it";
 
         results.OnTestFailure(details, stream.GetText());
         return false;
@@ -82,7 +85,7 @@ bool CheckClose(TestResults& results, Expected const& expected, Actual const& ac
     if (!AreClose(expected, actual, tolerance))
     { 
         UnitTest::MemoryOutStream stream;
-        stream << "Expected " << expected << " +/- " << tolerance << " but was " << actual;
+		stream << "Expected " << TypeHelpers<Expected>::Stringify(expected) << " +/- " << TypeHelpers<Tolerance>::Stringify(tolerance) << " but was " << TypeHelpers<Actual>::Stringify(actual);
 
         results.OnTestFailure(details, stream.GetText());
         return false;
@@ -105,7 +108,7 @@ bool CheckCloseRelativeNoZero(TestResults& results, Expected const& expected, Ac
     if (!AreCloseRelative(expected, actual, relativeTolerance))
     { 
         UnitTest::MemoryOutStream stream;
-        stream << "Expected " << expected << " R(+/-) " << relativeTolerance << " but was " << actual;
+		stream << "Expected " << TypeHelpers<Expected>::Stringify(expected) << " R(+/-) " << TypeHelpers<Tolerance>::Stringify(relativeTolerance) << " but was " << TypeHelpers<Actual>::Stringify(actual);
 
         results.OnTestFailure(details, stream.GetText());
         return false;
@@ -167,7 +170,7 @@ bool CheckArrayClose(TestResults& results, Expected const& expected, Actual cons
         stream << "Expected [ ";
         for (int expectedIndex = 0; expectedIndex < count; ++expectedIndex)
             stream << expected[expectedIndex] << " ";
-        stream << "] +/- " << tolerance << " but was [ ";
+        stream << "] +/- " << TypeHelpers<Tolerance>::Stringify(tolerance) << " but was [ ";
 
 		for (int actualIndex = 0; actualIndex < count; ++actualIndex)
             stream << actual[actualIndex] << " ";
@@ -201,7 +204,7 @@ bool CheckArray2DClose(TestResults& results, Expected const& expected, Actual co
             stream << "] ";
         }
 
-		stream << "] +/- " << tolerance << " but was [ ";
+		stream << "] +/- " << TypeHelpers<Tolerance>::Stringify(tolerance) << " but was [ ";
 
 		for (int actualRow = 0; actualRow < rows; ++actualRow)
         {

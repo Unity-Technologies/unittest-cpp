@@ -107,8 +107,8 @@ TEST(CheckEqualFailureIncludesCheckExpectedAndActual)
     CheckEqual(results, 1, something, TestDetails("", "", "", "", 0));
 
 	using namespace std;
-    CHECK(strstr(reporter.lastFailedMessage, "xpected 1"));
-    CHECK(strstr(reporter.lastFailedMessage, "was 2"));
+    CHECK(strstr(reporter.lastFailedMessage, "xpected: 1"));
+    CHECK(strstr(reporter.lastFailedMessage, "ctual: 2"));
 }
 
 TEST(CheckEqualFailureIncludesDetails)
