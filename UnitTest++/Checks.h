@@ -22,9 +22,13 @@ inline bool CheckEqual(TestResults& results, Expected const& expected, Actual co
     if (!(expected == actual))
     {
         UnitTest::MemoryOutStream stream;
-		stream << "Actual value did not match expected value!" << std::endl;
+		stream << "Expected values to be the same, but they were not";
+		if (CanStringify(expected) && CanStringify(actual))
+		{
+			stream << std::endl;
 		stream << "\tExpected: " << Stringify(expected) << std::endl;
 		stream << "\t  Actual: " << Stringify(actual) << std::endl;
+		}
 
         results.OnTestFailure(details, stream.GetText());
         return false;
@@ -51,7 +55,10 @@ inline bool CheckNotEqual(TestResults& results, Comperand const& comperant, Actu
     if (!(comperant != actual))
     {
         UnitTest::MemoryOutStream stream;
-		stream << "Expected to be different from " << Stringify(comperant) << " but was equal to it";
+		if (CanStringify(comperant))
+			stream << "Expected values to be not equal, but they were both " << Stringify(comperant);
+		else
+			stream << "Expected values to be not equal, but they were equal";
 
         results.OnTestFailure(details, stream.GetText());
         return false;
@@ -85,7 +92,10 @@ bool CheckClose(TestResults& results, Expected const& expected, Actual const& ac
     if (!AreClose(expected, actual, tolerance))
     { 
         UnitTest::MemoryOutStream stream;
+		if (CanStringify(expected) && CanStringify(tolerance) && CanStringify(actual))
 		stream << "Expected " << Stringify(expected) << " +/- " << Stringify(tolerance) << " but was " << Stringify(actual);
+		else
+			stream << "Expected values to be close to within a given tolerance, but they weren't";
 
         results.OnTestFailure(details, stream.GetText());
         return false;
@@ -108,7 +118,10 @@ bool CheckCloseRelativeNoZero(TestResults& results, Expected const& expected, Ac
     if (!AreCloseRelative(expected, actual, relativeTolerance))
     { 
         UnitTest::MemoryOutStream stream;
+		if (CanStringify(expected) && CanStringify(relativeTolerance) && CanStringify(actual))
 		stream << "Expected " << Stringify(expected) << " R(+/-) " << Stringify(relativeTolerance) << " but was " << Stringify(actual);
+		else
+			stream << "Expected values to be close to within a given relative tolerance, but they weren't";
 
         results.OnTestFailure(details, stream.GetText());
         return false;
@@ -129,17 +142,23 @@ bool CheckArrayEqual(TestResults& results, Expected const& expected, Actual cons
     {
         UnitTest::MemoryOutStream stream;
 
-		stream << "Expected [ ";
+		stream << "Expected array elements to be equal up to " << count << "elements, but they were not.";
+
+		if (CanStringify(expected[0]) && CanStringify(actual[0]))
+		{
+			stream << std::endl << "\tExpected: [ ";
 
 		for (int expectedIndex = 0; expectedIndex < count; ++expectedIndex)
             stream << Stringify(expected[expectedIndex]) << " ";
 
-		stream << "] but was [ ";
+			stream << "]";
+			stream << std::endl << "\t  Actual: [ ";
 
 		for (int actualIndex = 0; actualIndex < count; ++actualIndex)
             stream << Stringify(actual[actualIndex]) << " ";
 
-		stream << "]";
+			stream << "]" << std::endl;
+		}
 
         results.OnTestFailure(details, stream.GetText());
         return false;
@@ -167,14 +186,26 @@ bool CheckArrayClose(TestResults& results, Expected const& expected, Actual cons
     {
         UnitTest::MemoryOutStream stream;
 
-        stream << "Expected [ ";
+		if (CanStringify(tolerance))
+			stream << "Expected array elements to be close to within a tolerance of " << Stringify(tolerance) << " up to " << count << "elements, but they were not.";
+		else
+			stream << "Expected array elements to be close up to " << count << "elements, but they were not.";
+
+		if (CanStringify(expected[0]) && CanStringify(actual[0]))
+		{
+			stream << std::endl << "\tExpected: [ ";
+			
         for (int expectedIndex = 0; expectedIndex < count; ++expectedIndex)
             stream << Stringify(expected[expectedIndex]) << " ";
-        stream << "] +/- " << Stringify(tolerance) << " but was [ ";
+			
+			stream << "]";
+			stream << std::endl << "\t  Actual: [ ";
 
 		for (int actualIndex = 0; actualIndex < count; ++actualIndex)
             stream << Stringify(actual[actualIndex]) << " ";
-        stream << "]";
+			
+			stream << "]" << std::endl;
+		}
 
         results.OnTestFailure(details, stream.GetText());
         return false;
@@ -194,7 +225,15 @@ bool CheckArray2DClose(TestResults& results, Expected const& expected, Actual co
     {
         UnitTest::MemoryOutStream stream;
 
-        stream << "Expected [ ";    
+		if (CanStringify(tolerance))
+			stream << "Expected array elements to be close to within a tolerance of " << Stringify(tolerance) << " across " << rows << "rows of " << columns << " columns, but they were not.";
+		else
+			stream << "Expected array elements to be close across " << rows << "rows of " << columns << " columns, but they were not.";
+
+		if (CanStringify(expected[0]) && CanStringify(actual[0]))
+		{
+			stream << std::endl;
+			stream << "\tExpected: [ ";
 
 		for (int expectedRow = 0; expectedRow < rows; ++expectedRow)
         {
@@ -204,7 +243,9 @@ bool CheckArray2DClose(TestResults& results, Expected const& expected, Actual co
             stream << "] ";
         }
 
-		stream << "] +/- " << Stringify(tolerance) << " but was [ ";
+			stream << "]" << std::endl;
+			
+			stream << "\t  Actual: [ ";
 
 		for (int actualRow = 0; actualRow < rows; ++actualRow)
         {
@@ -214,7 +255,8 @@ bool CheckArray2DClose(TestResults& results, Expected const& expected, Actual co
             stream << "] ";
         }
 
-		stream << "]";
+			stream << "]" << std::endl;
+		}
 
         results.OnTestFailure(details, stream.GetText());
         return false;
@@ -230,16 +272,15 @@ bool CheckContains(TestResults& results, HaystackIterator begin, HaystackIterato
         UnitTest::MemoryOutStream message;
 
         // Make sure the message starts with the text "Expected" so that the ConsoleTestReporter will print it.
-        message << "Expected to find '" << Stringify(needle) << "', but it was not there.\n";
-        message << "Collection count: " << std::distance(begin, end) << std::endl;
-        message << "The first few:\n";
-        int i = 0;
+        message << "Expected to find " << Stringify(needle, "given value") << " in the range of " << std::distance(begin, end) << " elements, but it was not there.";
+		if (begin != end && CanStringify(*begin))
+		{
+			message << std::endl << "\tThe first few:" << std::endl;
         HaystackIterator it = begin;
-        while (it != end && i < 3)
+			for (int i = 0; it != end && i < 3; ++it, ++i)
         {
-            message << "\t'" << Stringify(*it) << "'\n";
-            ++it;
-            ++i;
+				message << "\t\t" << Stringify(*it) << "\n";
+			}
         }
 
         results.OnTestFailure(details, message.GetText());

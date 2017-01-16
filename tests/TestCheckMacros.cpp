@@ -253,8 +253,8 @@ TEST(CheckArrayCloseFailureIncludesCheckExpectedAndActual)
         CHECK_ARRAY_CLOSE (data1, data2, 4, 0.01f);
     }
 
-    CHECK(strstr(reporter.lastFailedMessage, "xpected [ 0 1 2 3 ]"));
-    CHECK(strstr(reporter.lastFailedMessage, "was [ 0 1 3 3 ]"));
+    CHECK(strstr(reporter.lastFailedMessage, "xpected: [ 0 1 2 3 ]"));
+    CHECK(strstr(reporter.lastFailedMessage, "ctual: [ 0 1 3 3 ]"));
 }
 
 TEST(CheckArrayCloseFailureContainsCorrectDetails)
@@ -340,8 +340,8 @@ TEST(CheckArrayEqualFailureIncludesCheckExpectedAndActual)
         CHECK_ARRAY_EQUAL (data1, data2, 4);
     }
 
-    CHECK(strstr(reporter.lastFailedMessage, "xpected [ 0 1 2 3 ]"));
-    CHECK(strstr(reporter.lastFailedMessage, "was [ 0 1 3 3 ]"));
+    CHECK(strstr(reporter.lastFailedMessage, "xpected: [ 0 1 2 3 ]"));
+    CHECK(strstr(reporter.lastFailedMessage, "ctual: [ 0 1 3 3 ]"));
 }
 
 TEST(CheckArrayEqualFailureContainsCorrectInfo)
@@ -444,8 +444,8 @@ TEST(CheckArray2DCloseFailureIncludesCheckExpectedAndActual)
 		CHECK_ARRAY2D_CLOSE (data1, data2, 2, 2, 0.01f);
     }
 
-    CHECK(strstr(reporter.lastFailedMessage, "xpected [ [ 0 1 ] [ 2 3 ] ]"));
-    CHECK(strstr(reporter.lastFailedMessage, "was [ [ 0 1 ] [ 3 3 ] ]"));
+    CHECK(strstr(reporter.lastFailedMessage, "xpected: [ [ 0 1 ] [ 2 3 ] ]"));
+    CHECK(strstr(reporter.lastFailedMessage, "ctual: [ [ 0 1 ] [ 3 3 ] ]"));
 }
 
 TEST(CheckArray2DCloseFailureContainsCorrectDetails)
