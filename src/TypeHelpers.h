@@ -59,6 +59,12 @@ namespace UnitTest {
 	{
 		return detail::Stringifier<detail::HasInsertionOperator<T>::value, T>::Stringify(value, defaultValue);
 	}
+	
+	template<typename T>
+	bool CanStringify(const T& value)
+	{
+		return detail::HasInsertionOperator<T>::value;
+	}
 }
 
 #endif
