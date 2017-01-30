@@ -4,6 +4,14 @@
 
 using namespace UnitTest;
 
+DeferredTestReporter::DeferredTestReporter()
+{
+}
+
+DeferredTestReporter::~DeferredTestReporter()
+{
+}
+
 void DeferredTestReporter::ReportTestStart(TestDetails const& details)
 {
     m_results.push_back(DeferredTestResult(details.suiteName, details.testName));

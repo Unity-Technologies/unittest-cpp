@@ -46,6 +46,10 @@ XmlTestReporter::XmlTestReporter(ostream& ostream)
 {
 }
 
+XmlTestReporter::~XmlTestReporter()
+{
+}
+
 void XmlTestReporter::ReportSummary(int totalTestCount, int failedTestCount,
                                     int failureCount, float secondsElapsed)
 {
@@ -74,7 +78,7 @@ void XmlTestReporter::AddXmlElement(ostream& os, char const* encoding)
     if (encoding != NULL)
         os << " encoding=\"" << encoding << "\"";
 
-    os << "?>";
+    os << "?>\n";
 }
 
 void XmlTestReporter::BeginResults(std::ostream& os, int totalTestCount, int failedTestCount, 
@@ -85,7 +89,7 @@ void XmlTestReporter::BeginResults(std::ostream& os, int totalTestCount, int fai
        << " failedtests=\"" << failedTestCount << "\"" 
        << " failures=\"" << failureCount << "\"" 
        << " time=\"" << secondsElapsed << "\""
-       << ">";
+       << ">\n";
 }
 
 void XmlTestReporter::EndResults(std::ostream& os)
@@ -95,7 +99,7 @@ void XmlTestReporter::EndResults(std::ostream& os)
 
 void XmlTestReporter::BeginTest(std::ostream& os, DeferredTestResult const& result)
 {
-    os << "<test"
+	os << "\t<test"
         << " suite=\"" << result.suiteName << "\"" 
         << " name=\"" << result.testName << "\""
         << " time=\"" << result.timeElapsed << "\"";
@@ -104,14 +108,14 @@ void XmlTestReporter::BeginTest(std::ostream& os, DeferredTestResult const& resu
 void XmlTestReporter::EndTest(std::ostream& os, DeferredTestResult const& result)
 {
     if (result.failed)
-        os << "</test>";
+        os << "\t</test>\n";
     else
-        os << "/>";
+        os << "/>\n";
 }
 
 void XmlTestReporter::AddFailure(std::ostream& os, DeferredTestResult const& result)
 {
-    os << ">"; // close <test> element
+    os << ">\n"; // close <test> element
 
     for (DeferredTestResult::FailureVec::const_iterator it = result.failures.begin(); 
          it != result.failures.end(); 
@@ -120,7 +124,7 @@ void XmlTestReporter::AddFailure(std::ostream& os, DeferredTestResult const& res
         string const escapedMessage = XmlEscape(it->second);
         string const message = BuildFailureMessage(result.failureFile, it->first, escapedMessage);
 
-        os << "<failure" << " message=\"" << message << "\"" << "/>";
+        os << "\t\t<failure" << " message=\"" << message << "\"" << "/>\n";
     }
 }
 

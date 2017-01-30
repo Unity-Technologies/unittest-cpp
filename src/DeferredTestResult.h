@@ -7,10 +7,15 @@
 namespace UnitTest
 {
 
-struct DeferredTestResult
+class DeferredTestResult
 {
+public:
 	DeferredTestResult();
     DeferredTestResult(char const* suite, char const* test);
+
+	~DeferredTestResult();
+	DeferredTestResult(const DeferredTestResult& that);
+	DeferredTestResult& operator =(const DeferredTestResult& that);
 
     std::string suiteName;
     std::string testName;

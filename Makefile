@@ -1,6 +1,6 @@
 CXX = g++
-CXXFLAGS ?= -g -Wall -W -ansi # -pedantic
-LDFLAGS ?= 
+CXXFLAGS ?= -Wall -W -ansi -arch i386 -mmacosx-version-min=10.4 # -pedantic
+LDFLAGS ?= -arch i386
 SED = sed
 MV = mv
 RM = rm
