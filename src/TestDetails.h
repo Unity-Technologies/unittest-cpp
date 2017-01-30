@@ -23,7 +23,6 @@ public:
     char const* filename;
 	char const* category;
     int lineNumber;
-	TestProperties properties;
 };
 
 }

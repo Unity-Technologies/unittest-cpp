@@ -17,7 +17,6 @@ TestDetails::TestDetails(const TestDetails& details, int lineNumber_)
     , filename(details.filename)
     , lineNumber(lineNumber_)
 	, category(details.category)
-	, properties(details.properties)
 {
 }
 
