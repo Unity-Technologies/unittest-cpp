@@ -56,7 +56,7 @@ TEST_FIXTURE(DeferredTestReporterFixture, ReportTestStartCapturesTestNameAndSuit
 {
     reporter.ReportTestStart(details);
 
-    DeferredTestResult const& result = reporter.GetResults().at(0);
+    DeferredTestResult const& result = *reporter.GetResults().begin();
     CHECK_EQUAL(testName.c_str(), result.testName.c_str());
     CHECK_EQUAL(testSuite.c_str(), result.suiteName.c_str());
 }
@@ -67,7 +67,7 @@ TEST_FIXTURE(DeferredTestReporterFixture, ReportTestEndCapturesTestTime)
     reporter.ReportTestStart(details);
     reporter.ReportTestFinish(details, elapsed);
 
-    DeferredTestResult const& result = reporter.GetResults().at(0);
+    DeferredTestResult const& result = *reporter.GetResults().begin();
     CHECK_CLOSE(elapsed, result.timeElapsed, 0.0001f);
 }
 
@@ -78,7 +78,7 @@ TEST_FIXTURE(DeferredTestReporterFixture, ReportFailureSavesFailureDetails)
     reporter.ReportTestStart(details);
     reporter.ReportFailure(details, failure);
 
-    DeferredTestResult const& result = reporter.GetResults().at(0);
+    DeferredTestResult const& result = *reporter.GetResults().begin();
     CHECK(result.failed == true);
     CHECK_EQUAL(fileName.c_str(), result.failureFile.c_str());
 }
@@ -92,7 +92,7 @@ TEST_FIXTURE(DeferredTestReporterFixture, ReportFailureSavesFailureDetailsForMul
     reporter.ReportFailure(details, failure1);
     reporter.ReportFailure(details, failure2);
 
-    DeferredTestResult const& result = reporter.GetResults().at(0);
+    DeferredTestResult const& result = *reporter.GetResults().begin();
     CHECK_EQUAL(2, (int)result.failures.size());
     CHECK_EQUAL(failure1, result.failures[0].failureStr);
     CHECK_EQUAL(failure2, result.failures[1].failureStr);
@@ -112,7 +112,7 @@ TEST_FIXTURE(DeferredTestReporterFixture, DeferredTestReporterTakesCopyOfFailure
     reporter.ReportFailure(details, failureMessage);
     strcpy(failureMessage, badStr);
 
-    DeferredTestResult const& result = reporter.GetResults().at(0);
+    DeferredTestResult const& result = *reporter.GetResults().begin();
     DeferredTestFailure const& failure = result.failures.at(0);
     CHECK_EQUAL(goodStr, failure.failureStr);
 }

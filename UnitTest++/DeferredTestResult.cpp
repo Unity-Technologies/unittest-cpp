@@ -41,6 +41,32 @@ DeferredTestResult::~DeferredTestResult()
 {
 }
 
+DeferredTestResult::DeferredTestResult(const DeferredTestResult& that)
+	: suiteName(that.suiteName)
+	, testName(that.testName)
+	, failureFile(that.failureFile)
+	, failures(that.failures)
+	, timeElapsed(that.timeElapsed)
+	, failed(that.failed)
+{
+}
+
+DeferredTestResult& DeferredTestResult::operator =(const DeferredTestResult& that)
+{
+	if(this != &that)
+	{
+		suiteName = that.suiteName;
+		testName = that.testName;
+		failureFile = that.failureFile;
+		failures = that.failures;
+		timeElapsed = that.timeElapsed;
+		failed = that.failed;
+	}
+
+	return *this;
+}
+
+
 }
 
 #endif

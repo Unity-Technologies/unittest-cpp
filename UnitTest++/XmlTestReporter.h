@@ -15,6 +15,7 @@ class UNITTEST_LINKAGE XmlTestReporter : public DeferredTestReporter
 {
 public:
     explicit XmlTestReporter(std::ostream& ostream);
+	virtual ~XmlTestReporter();
 
     virtual void ReportSummary(int totalTestCount, int failedTestCount, int failureCount, float secondsElapsed);
 
