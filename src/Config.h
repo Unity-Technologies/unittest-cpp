@@ -34,6 +34,23 @@
         int LineNumber() const          { return 0; }
     };
     #define HANDLE_FORCED_NO_EXCEPTIONS(name) struct FakeException name;
+
+    #ifdef try
+    #undef try
+    #endif
+
+    #ifdef catch
+    #undef catch
+    #endif
+
+    #ifdef True
+    #undef True
+    #endif
+
+
+    #define try      if (true)
+    #define catch(X) if (false)
+
 #else
     #define HANDLE_FORCED_NO_EXCEPTIONS(name)
 #endif
