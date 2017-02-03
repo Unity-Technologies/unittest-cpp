@@ -77,22 +77,30 @@
 	UNITTEST_MULTILINE_MACRO_END
 
 #define CHECK_MSG(value, message) \
-    do \
-    { \
-        try { \
+    UNITTEST_MULTILINE_MACRO_BEGIN \
+	UT_TRY \
+		({ \
             bool valueToCheck = value; \
             if (!UnitTest::Check(valueToCheck)) \
             { \
                 UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __FILE__, __LINE__), message); \
                 DEBUG_BREAK; \
             } \
-        } \
-        catch (...) { \
+		}) \
+		UT_CATCH (std::exception, e, \
+		{ \
+			UnitTest::MemoryOutStream message; \
+			message << "Unhandled exception (" << e.what() << ") in CHECK_MSG(" #value ", " #message ")"; \
+			UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __FILE__, __LINE__), \
+				message.GetText()); \
+		}) \
+		UT_CATCH_ALL \
+		({ \
             UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __FILE__, __LINE__), \
                     "Unhandled exception in CHECK_MSG(" #value ", " #message ")"); \
             DEBUG_BREAK; \
-        } \
-    } while (0)
+        }) \
+	UNITTEST_MULTILINE_MACRO_END
 
 #define CHECK_EQUAL(expected, actual) \
 	UNITTEST_MULTILINE_MACRO_BEGIN \
@@ -117,46 +125,70 @@
 	UNITTEST_MULTILINE_MACRO_END
 
 #define CHECK_NOT_EQUAL(comperand, actual) \
-    do \
-    { \
-        try { \
+    UNITTEST_MULTILINE_MACRO_BEGIN \
+        UT_TRY \
+		({ \
             if (!UnitTest::CheckNotEqual(*UnitTest::CurrentTest::Results(), comperand, actual, UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __FILE__, __LINE__))) \
                 DEBUG_BREAK; \
-        } \
-        catch (...) { \
+        }) \
+		UT_CATCH (std::exception, e, \
+		{ \
+			UnitTest::MemoryOutStream message; \
+			message << "Unhandled exception (" << e.what() << ") in CHECK_NOT_EQUAL(" #comperand ", " #actual ")"; \
+			UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __FILE__, __LINE__), \
+				message.GetText()); \
+		}) \
+        UT_CATCH_ALL \
+		({ \
             UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __FILE__, __LINE__), \
                     "Unhandled exception in CHECK_NOT_EQUAL(" #comperand ", " #actual ")"); \
             DEBUG_BREAK; \
-        } \
-    } while (0)
+        }) \
+    UNITTEST_MULTILINE_MACRO_END
 
 #define CHECK_NULL(value) \
-do \
-    { \
-        try { \
+    UNITTEST_MULTILINE_MACRO_BEGIN \
+        UT_TRY \
+		({ \
             if (!UnitTest::CheckEqual(*UnitTest::CurrentTest::Results(), static_cast<const void*>(NULL), reinterpret_cast<const void*>(value), UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __FILE__, __LINE__))) \
                 DEBUG_BREAK; \
-        } \
-        catch (...) { \
+        }) \
+		UT_CATCH (std::exception, e, \
+		{ \
+			UnitTest::MemoryOutStream message; \
+			message << "Unhandled exception (" << e.what() << ") in CHECK_NULL(" #value ")"; \
+			UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __FILE__, __LINE__), \
+				message.GetText()); \
+		}) \
+        UT_CATCH_ALL \
+		({ \
             UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __FILE__, __LINE__), \
                     "Unhandled exception in CHECK_NULL(" #value ")"); \
             DEBUG_BREAK; \
-        } \
-    } while (0)
+        }) \
+    UNITTEST_MULTILINE_MACRO_END
 
 #define CHECK_NOT_NULL(value) \
-    do \
-    { \
-        try { \
+    UNITTEST_MULTILINE_MACRO_BEGIN \
+        UT_TRY \
+		({ \
             if (!UnitTest::CheckNotEqual(*UnitTest::CurrentTest::Results(), static_cast<const void*>(NULL), reinterpret_cast<const void*>(value), UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __FILE__, __LINE__))) \
                 DEBUG_BREAK; \
-        } \
-        catch (...) { \
+        }) \
+		UT_CATCH (std::exception, e, \
+		{ \
+			UnitTest::MemoryOutStream message; \
+			message << "Unhandled exception (" << e.what() << ") in CHECK_NOT_NULL(" #value ")"; \
+			UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __FILE__, __LINE__), \
+				message.GetText()); \
+		}) \
+        UT_CATCH_ALL \
+		({ \
             UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __FILE__, __LINE__), \
                     "Unhandled exception in CHECK_NOT_NULL(" #value ")"); \
             DEBUG_BREAK; \
-        } \
-    } while (0)
+        }) \
+    UNITTEST_MULTILINE_MACRO_END
 
 #define CHECK_CLOSE(expected, actual, tolerance) \
 	UNITTEST_MULTILINE_MACRO_BEGIN \
@@ -181,18 +213,26 @@ do \
 	UNITTEST_MULTILINE_MACRO_END
 
 #define CHECK_RELATIVE_ERROR_NO_ZERO(expected, actual, relativeTolerance) \
-    do \
-    { \
-        try { \
+	UNITTEST_MULTILINE_MACRO_BEGIN \
+        UT_TRY \
+		({ \
             if (!UnitTest::CheckCloseRelativeNoZero(*UnitTest::CurrentTest::Results(), expected, actual, relativeTolerance, UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __FILE__, __LINE__))) \
                 DEBUG_BREAK; \
-        } \
-        catch (...) { \
+        }) \
+		UT_CATCH (std::exception, e, \
+		{ \
+			UnitTest::MemoryOutStream message; \
+			message << "Unhandled exception (" << e.what() << ") in CHECK_RELATIVE_ERROR_NO_ZERO(" #expected ", " #actual ", " #relativeTolerance ")"; \
+			UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __FILE__, __LINE__), \
+				message.GetText()); \
+		}) \
+        UT_CATCH_ALL \
+		({ \
             UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __FILE__, __LINE__), \
-                    "Unhandled exception in CHECK_RELATIVE_ERROR_NO_ZERO(" #expected ", " #actual ")"); \
+                    "Unhandled exception in CHECK_RELATIVE_ERROR_NO_ZERO(" #expected ", " #actual ", " #relativeTolerance ")"); \
             DEBUG_BREAK; \
-        } \
-    } while (0)
+        }) \
+	UNITTEST_MULTILINE_MACRO_END
 
 #define CHECK_ARRAY_EQUAL(expected, actual, count) \
 	UNITTEST_MULTILINE_MACRO_BEGIN \
@@ -288,15 +328,24 @@ do \
 
 #define CHECK_CONTAINS(haystackBegin, haystackEnd, needle) \
     UNITTEST_MULTILINE_MACRO_BEGIN \
-        try { \
+        UT_TRY \
+		({ \
             if (!UnitTest::CheckContains(*UnitTest::CurrentTest::Results(), haystackBegin, haystackEnd, needle, UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __FILE__, __LINE__))) \
                 DEBUG_BREAK; \
-        } \
-        catch (...) { \
+        }) \
+ 		UT_CATCH (std::exception, e, \
+		{ \
+			UnitTest::MemoryOutStream message; \
+			message << "Unhandled exception (" << e.what() << ") in CHECK_CONTAINS(" #haystackBegin ", " #haystackEnd ", " #needle ")"; \
+			UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __FILE__, __LINE__), \
+				message.GetText()); \
+		}) \
+        UT_CATCH_ALL \
+		({ \
             UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __FILE__, __LINE__), \
                     "Unhandled exception in CHECK_CONTAINS(" #haystackBegin ", " #haystackEnd ", " #needle ")"); \
             DEBUG_BREAK; \
-        } \
+        }) \
     UNITTEST_MULTILINE_MACRO_END
 
 #endif
