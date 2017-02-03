@@ -89,10 +89,10 @@
 		}) \
 		UT_CATCH (std::exception, e, \
 		{ \
-			UnitTest::MemoryOutStream message; \
-			message << "Unhandled exception (" << e.what() << ") in CHECK_MSG(" #value ", " #message ")"; \
+			UnitTest::MemoryOutStream buf; \
+			buf << "Unhandled exception (" << e.what() << ") in CHECK_MSG(" #value ", " #message ")"; \
 			UnitTest::CurrentTest::Results()->OnTestFailure(UnitTest::TestDetails(*UnitTest::CurrentTest::Details(), __FILE__, __LINE__), \
-				message.GetText()); \
+				buf.GetText()); \
 		}) \
 		UT_CATCH_ALL \
 		({ \
