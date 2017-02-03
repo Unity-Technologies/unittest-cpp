@@ -43,9 +43,9 @@ private:
 #endif
 
 #if !UNITTEST_USE_EXCEPTIONS
-# define UNITTEST_THROW_SIGNALS	// nothing
+# define UNITTEST_THROW_SIGNALS_POSIX_ONLY	// nothing
 #else
-#define UNITTEST_THROW_SIGNALS \
+#define UNITTEST_THROW_SIGNALS_POSIX_ONLY \
 	UnitTest::SignalTranslator sig; \
 	if (UNITTEST_EXTENSION sigsetjmp(*UnitTest::SignalTranslator::s_jumpTarget, 1) != 0) \
         throw ("Unhandled system exception"); 
