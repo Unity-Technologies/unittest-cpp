@@ -12,14 +12,15 @@ namespace UnitTest {
 
     class Timer
     {
-        Timer() {}
-        void Start() {}
-        double GetTimeInMs() const { return 0; }
-    }
+    public:
+        inline Timer() {}
+        inline void Start() {}
+        inline double GetTimeInMs() const { return 0.0; }
+    };
 
     namespace TimeHelpers
     {
-        void SleepMs(int const ms) {}
+        inline void SleepMs(int const ms) {}
     }
 }
 #endif
