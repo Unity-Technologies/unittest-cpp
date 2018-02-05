@@ -12,12 +12,15 @@ namespace UnitTest {
 class UNITTEST_LINKAGE TestReporterStdout : public TestReporterFormat
 {
 public:
-	TestReporterStdout(FILE* fileHandle = stdout);
+	TestReporterStdout();
+	TestReporterStdout(FILE* fileHandle);
+	TestReporterStdout(FILE* fileHandle, FILE* errorFileHandle);
 
 private:
-	virtual void Output(const char* log, va_list list);
+	virtual void Output(bool failure, const char* log, va_list list);
 
-	FILE*	m_fileHandle;
+	FILE*	m_FileHandle;
+	FILE*   m_ErrorFileHandle;
 };
 
 }
