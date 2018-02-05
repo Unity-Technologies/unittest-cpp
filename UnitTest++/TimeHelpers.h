@@ -1,3 +1,5 @@
+#ifndef UNITTEST_TIMEHELPERS_H
+#define UNITTEST_TIMEHELPERS_H
 #include "Config.h"
 
 #if defined (UNITTEST_BASELIB)
@@ -23,4 +25,6 @@ namespace UnitTest {
         inline void SleepMs(int const ms) {}
     }
 }
+#endif
+
 #endif
