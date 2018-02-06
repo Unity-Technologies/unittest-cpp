@@ -1,5 +1,3 @@
-#ifndef UNITTEST_TIMEHELPERS_H
-#define UNITTEST_TIMEHELPERS_H
 #include "Config.h"
 
 #if defined (UNITTEST_BASELIB)
@@ -10,6 +8,8 @@
     #include "Win32/TimeHelpers.h"
 
 #else // dummy impl
+#ifndef UNITTEST_TIMEHELPERS_H
+#define UNITTEST_TIMEHELPERS_H
 namespace UnitTest {
 
     class Timer
