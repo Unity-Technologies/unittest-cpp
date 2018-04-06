@@ -23,10 +23,10 @@ private:
     virtual void ReportSummary(int totalTestCount, int failedTestCount, int failureCount, float secondsElapsed);
 
 protected:
-	virtual void Output(const char* log, va_list list) = 0;
+	virtual void Output(bool failure, const char* log, va_list list) = 0;
 
 private:
-	void OutputInternal(const char* log, ...);
+	void OutputInternal(bool failure, const char* log, ...);
 };
 
 }

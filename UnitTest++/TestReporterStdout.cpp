@@ -8,14 +8,28 @@
 
 namespace UnitTest {
 
-TestReporterStdout::TestReporterStdout(FILE* fileHandle)
-	: m_fileHandle(fileHandle)
+TestReporterStdout::TestReporterStdout()
+	: m_FileHandle(stdout)
+	, m_ErrorFileHandle(stderr)
 {
 }
 
-void TestReporterStdout::Output(const char* log, va_list list)
+TestReporterStdout::TestReporterStdout(FILE* fileHandle)
+	: m_FileHandle(fileHandle)
+	, m_ErrorFileHandle(fileHandle)
 {
-	vfprintf(m_fileHandle, log, list);
+}
+
+TestReporterStdout::TestReporterStdout(FILE* fileHandle, FILE* errorFileHandle)
+	: m_FileHandle(fileHandle)
+	, m_ErrorFileHandle(errorFileHandle)
+{
+}
+
+void TestReporterStdout::Output(bool failure, const char* log, va_list list)
+{
+	FILE* const handle = failure ? m_ErrorFileHandle : m_FileHandle;
+	vfprintf(handle, log, list);
 }
 
 }
